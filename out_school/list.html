@@ -126,31 +126,8 @@
               <div class="van-cell-group ex-card-links" data-v-6a55dd86="">
                 <div class="van-cell van-cell--center van-cell--clickable" role="button" tabindex="0">
                   <!---->
-                  <div class="van-cell__title" onclick="detail()">
+                  <div class="van-cell__title" onclick="window.open('apply.html','_self')">
                     <span>查看申请详情</span>
-					<script>
-					function getQueryParams(qs) {
-							qs = qs.split('+').join(' ');
-							var params = {},
-							tokens,
-							re = /[?&]?([^=]+)=([^&]*)/g;
-					 
-							while (tokens = re.exec(qs)) {
-							params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
-							}
-						return params;
-							}
-					var query = getQueryParams(document.location.search);
-					var name = query.name;
-					var ID = query.ID;
-					var college = query.college;
-					var major = query.major;
-					var banji = query.banji;
-					var detailurl = './detail.html?name=' + name + '&ID=' + ID + '&college=' + college + '&major=' + major + '&banji=' + banji;
-					function detail(){
-						window.open(detailurl,'_self')
-					}
-					</script>
                     <!---->
                   </div>
                   <!---->
