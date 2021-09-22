@@ -2480,7 +2480,8 @@ ol,ul {
     padding: 16px 16px 8px;
     color: #969799;
     font-size: 14px;
-    line-height: 16px
+    line-height: 16px;
+	background-color: #F5F5F5;
 }
 
 .van-action-sheet {
