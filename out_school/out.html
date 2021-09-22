@@ -6,6 +6,7 @@
 		<meta charset="utf-8">
 		<title>外出登记二维码</title>
 		<link rel="stylesheet" href="./css/outSchool.css" tppabs="http://goodyaoshi.github.io/out-school/css/outSchool.css" type="text/css" />
+		<script src="https://cdn.bootcdn.net/ajax/libs/qrious/4.0.2/qrious.js"></script>
 	</head>
 	<body>
 		<div id="app" data-v-app="">
@@ -48,7 +49,7 @@
 					<div class="ex-qrcode center qrcode" align="center" style="background-color: #f5f5f5" width="180"
 						height="180" data-v-544d011e="" data-v-fae8cc3a="">
 						<img style="height: 120px;width: 120px;margin-top: 20px;margin-bottom: 20px;"
-							src="./img/qrcode.png"/>
+							id="qrious"/>
 						<script>
 						function getQueryParams(qs) {
 								qs = qs.split('+').join(' ');
@@ -68,7 +69,16 @@
 						var major = query.major;
 						var banji = query.banji;
 						var detailurl = 'https://goodyaoshi.github.io/out_school/detail.html?name=' + name + '&ID=' + ID + '&college=' + college + '&major=' + major + '&banji=' + banji;
-						document.images[0].src = 'http://qr.kegood.com/?m=0&e=L&p=5&url=' + encodeURIComponent(detailurl);
+						<!--document.images[0].src = 'http://qr.kegood.com/?m=0&e=L&p=5&url=' + encodeURIComponent(detailurl);-->
+						var qr = new QRious({
+							// 二维码生成容器
+							element : document.getElementById("qrious"),
+							size:200,
+							// 二维码颜色
+							foreground :'green',
+							// URL链接
+							value : encodeURI(detailurl)
+						});
 						</script>
 					</div>
 					<div>
