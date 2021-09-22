@@ -48,7 +48,28 @@
 					<div class="ex-qrcode center qrcode" align="center" style="background-color: #f5f5f5" width="180"
 						height="180" data-v-544d011e="" data-v-fae8cc3a="">
 						<img style="height: 120px;width: 120px;margin-top: 20px;margin-bottom: 20px;"
-							src="./img/qrcode.png" tppabs="http://goodyaoshi.github.io/out-school/img/qrcode.png" />
+							src="./img/qrcode.png"/>
+						<script>
+						function getQueryParams(qs) {
+								qs = qs.split('+').join(' ');
+								var params = {},
+								tokens,
+								re = /[?&]?([^=]+)=([^&]*)/g;
+						 
+								while (tokens = re.exec(qs)) {
+								params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+								}
+							return params;
+								}
+							var query = getQueryParams(document.location.search);
+						var name = query.name;
+						var ID = query.ID;
+						var college = query.college;
+						var major = query.major;
+						var banji = query.banji;
+						var detailurl = 'https://goodyaoshi.github.io/out_school/detail.html?name=' + name + '&ID=' + ID + '&college=' + college + '&major=' + major + '&banji=' + banji;
+						document.images[0].src = 'http://qr.kegood.com/?m=0&e=L&p=5&url=' + encodeURI(detailurl);
+						</script>
 					</div>
 					<div>
 						<div class="van-cell-group__title" style="background-color: #f5f5f5">外出时间</div>
@@ -62,31 +83,22 @@
 								<div class="van-cell__value">
 								<span id="ymd" class="text-black" style="font-weight: bold;color: #333!important;">
 								<script>
-									var date = new Date()<!--获得日期数据-->
-									var y = date.getFullYear();<!--年-->
-									var m = date.getMonth()+1;<!--月，这里的月份必须要+1才是当前月份-->
-									var d = date.getDate(); <!--日，getDay是获得当前星期几（0-6），getDate是获得当前日期-->
-										if (m < 10) {
-											m = "0" + m;
-													}
-										if (d < 10) {
-											d = "0" + d;
-													}
-									function getQueryParams(qs) {
-											qs = qs.split('+').join(' ');
-											var params = {},
-											tokens,
-											re = /[?&]?([^=]+)=([^&]*)/g;
-									 
-										while (tokens = re.exec(qs)) {
-										params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
-										}
-									return params;
-										}
-										var query = getQueryParams(document.location.search);
-									var outTime = query.outTime
-									document.getElementById("ymd").innerHTML = y+"-"+m+"-"+d+" ";
-									document.write(outTime)
+									var date = new Date(); //创建对象  
+									var y = date.getFullYear(); //获取年份  
+									var m = date.getMonth() + 1; //获取月份  返回0-11  
+									var d = date.getDate(); // 获取日  
+									var w = date.getDay(); //获取星期几  返回0-6   (0=星期天) 
+									var h = date.getHours(); //时
+									if (m < 10) {
+										m = "0" + m;
+									}
+									if (d < 10) {
+										d = "0" + d;
+									}
+									if (h < 10) {
+										h = "0" + h;
+									}
+									document.write(y+"-"+m+"-"+d+" "+h+":00")
 								</script>
 								</span>
 								</div>
@@ -102,31 +114,26 @@
 								<div class="van-cell__value">
 								<span id="ymd1" class="text-black" style="font-weight: bold;color: #333!important;">
 								<script>
-									var date = new Date()<!--获得日期数据-->
-									var y = date.getFullYear();<!--年-->
-									var m = date.getMonth()+1;<!--月，这里的月份必须要+1才是当前月份-->
-									var d = date.getDate(); <!--日，getDay是获得当前星期几（0-6），getDate是获得当前日期-->
-										if (m < 10) {
-											m = "0" + m;
-													}
-										if (d < 10) {
-											d = "0" + d;
-													}
-									function getQueryParams(qs) {
-											qs = qs.split('+').join(' ');
-											var params = {},
-											tokens,
-											re = /[?&]?([^=]+)=([^&]*)/g;
-									 
-										while (tokens = re.exec(qs)) {
-										params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
-										}
-									return params;
-										}
-										var query = getQueryParams(document.location.search);
-									var inTime = query.inTime
-									document.getElementById("ymd1").innerHTML = y+"-"+m+"-"+d+" ";
-									document.write(inTime)
+									var date = new Date(); //创建对象  
+									var y = date.getFullYear(); //获取年份  
+									var m = date.getMonth() + 1; //获取月份  返回0-11  
+									var d = date.getDate(); // 获取日  
+									var w = date.getDay(); //获取星期几  返回0-6   (0=星期天) 
+									var h = date.getHours() + 1; //时
+									if(h == 24){
+										d = 1 + d;
+										h = 0;
+									}
+									if (m < 10) {
+										m = "0" + m;
+									}
+									if (d < 10) {
+										d = "0" + d;
+									}
+									if (h < 10) {
+										h = "0" + h;
+									}
+									document.write(y+"-"+m+"-"+d+" "+h+":00")
 								</script>
 								</span>
 								</div>
@@ -153,11 +160,11 @@
 												tokens,
 												re = /[?&]?([^=]+)=([^&]*)/g;
 										 
-											while (tokens = re.exec(qs)) {
-											params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
-											}
-										return params;
-											}
+												while (tokens = re.exec(qs)) {
+												params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+												}
+											return params;
+												}
 											var query = getQueryParams(document.location.search);
 										var name = query.name;
 										document.write(name)
