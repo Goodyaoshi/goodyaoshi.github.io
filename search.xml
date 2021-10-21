@@ -475,4 +475,67 @@
         <tag>程序基础</tag>
       </tags>
   </entry>
+  <entry>
+    <title>字符和字符串</title>
+    <url>/2021/10/21/%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+    <content><![CDATA[<p>在Java中，字符和字符串是两个不同的类型</p>
+<h4 id="字符类型"><a href="#字符类型" class="headerlink" title="字符类型"></a>字符类型</h4><p>字符类型<code>char</code>是基本数据类型，它是<code>character</code>的缩写。一个<code>char</code>保存一个Unicode字符：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> c1 = <span class="string">&#x27;A&#x27;</span>;</span><br><span class="line"><span class="keyword">char</span> c2 = <span class="string">&#x27;中&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>因为Java在内存中总是使用Unicode表示字符，所以，一个英文字符和一个中文字符都用一个<code>char</code>类型表示，它们都占用两个字节。要显示一个字符的Unicode编码，只需将<code>char</code>类型直接赋值给<code>int</code>类型即可：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> n1 = <span class="string">&#x27;A&#x27;</span>; <span class="comment">// 字母“A”的Unicodde编码是65</span></span><br><span class="line"><span class="keyword">int</span> n2 = <span class="string">&#x27;中&#x27;</span>; <span class="comment">// 汉字“中”的Unicode编码是20013</span></span><br></pre></td></tr></table></figure>
+<p>还可以直接用转义字符<code>\u</code>+Unicode编码来表示一个字符：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 注意是十六进制:</span></span><br><span class="line"><span class="keyword">char</span> c3 = <span class="string">&#x27;\u0041&#x27;</span>; <span class="comment">// &#x27;A&#x27;，因为十六进制0041 = 十进制65</span></span><br><span class="line"><span class="keyword">char</span> c4 = <span class="string">&#x27;\u4e2d&#x27;</span>; <span class="comment">// &#x27;中&#x27;，因为十六进制4e2d = 十进制20013</span></span><br></pre></td></tr></table></figure>
+<h4 id="字符串类型"><a href="#字符串类型" class="headerlink" title="字符串类型"></a>字符串类型</h4><p>和<code>char</code>类型不同，字符串类型<code>String</code>是引用类型，我们用双引号<code>&quot;...&quot;</code>表示字符串。一个字符串可以存储0个到任意个字符：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;&quot;</span>; <span class="comment">// 空字符串，包含0个字符</span></span><br><span class="line">String s1 = <span class="string">&quot;A&quot;</span>; <span class="comment">// 包含一个字符</span></span><br><span class="line">String s2 = <span class="string">&quot;ABC&quot;</span>; <span class="comment">// 包含3个字符</span></span><br><span class="line">String s3 = <span class="string">&quot;中文 ABC&quot;</span>; <span class="comment">// 包含6个字符，其中有一个空格</span></span><br></pre></td></tr></table></figure>
+<p><code>&quot;abc&quot;xyz&quot;</code>，编译器就无法判断中间的引号究竟是字符串的一部分还是表示字符串结束。这个时候，我们需要借助转义字符<code>\</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;abc\&quot;xyz&quot;</span>; <span class="comment">// 包含7个字符: a, b, c, &quot;, x, y, z</span></span><br></pre></td></tr></table></figure>
+<p>因为<code>\</code>是转义字符，所以，两个<code>\\</code>表示一个<code>\</code>字符：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;abc\\xyz&quot;</span>; <span class="comment">// 包含7个字符: a, b, c, \, x, y, z</span></span><br></pre></td></tr></table></figure>
+<p>常见的转义字符包括：</p>
+<ul>
+<li><code>\&quot;</code> 表示字符<code>&quot;</code></li>
+<li><code>\&#39;</code> 表示字符<code>&#39;</code></li>
+<li><code>\\</code> 表示字符<code>\</code></li>
+<li><code>\n</code> 表示换行符</li>
+<li><code>\r</code> 表示回车符</li>
+<li><code>\t</code> 表示Tab</li>
+<li><code>\u####</code> 表示一个Unicode编码的字符</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;ABC\n\u4e2d\u6587&quot;</span>; <span class="comment">// 包含6个字符: A, B, C, 换行符, 中, 文</span></span><br></pre></td></tr></table></figure>
+<h4 id="字符串连接"><a href="#字符串连接" class="headerlink" title="字符串连接"></a>字符串连接</h4><p>Java的编译器对字符串做了特殊照顾，可以使用<code>+</code>连接任意字符串和其他数据类型，这样极大地方便了字符串的处理：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 字符串连接</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s1 = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">        String s2 = <span class="string">&quot;world&quot;</span>;</span><br><span class="line">        String s = s1 + <span class="string">&quot; &quot;</span> + s2 + <span class="string">&quot;!&quot;</span>;</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果用<code>+</code>连接字符串和其他数据类型，会将其他数据类型先自动转型为字符串，再连接：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 字符串连接</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> age = <span class="number">25</span>;</span><br><span class="line">        String s = <span class="string">&quot;age is &quot;</span> + age;</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="多行字符串"><a href="#多行字符串" class="headerlink" title="多行字符串"></a>多行字符串</h4><p>如果我们要表示多行字符串，使用+号连接会非常不方便：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">String s &#x3D; &quot;first line \n&quot;</span><br><span class="line">         + &quot;second line \n&quot;</span><br><span class="line">         + &quot;end&quot;;</span><br></pre></td></tr></table></figure>
+<p>从Java 13开始，字符串可以用<code>&quot;&quot;&quot;...&quot;&quot;&quot;</code>表示多行字符串（Text Blocks）了：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 多行字符串</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s = <span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">                   SELECT * FROM</span></span><br><span class="line"><span class="string">                     users</span></span><br><span class="line"><span class="string">                   WHERE id &gt; 100</span></span><br><span class="line"><span class="string">                   ORDER BY name DESC</span></span><br><span class="line"><span class="string">                   &quot;</span><span class="string">&quot;&quot;</span>;</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述多行字符串实际上是5行，在最后一个<code>DESC</code>后面还有一个<code>\n</code>。如果我们不想在字符串末尾加一个<code>\n</code>，就需要这么写：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;&quot;</span><span class="string">&quot; </span></span><br><span class="line"><span class="string">           SELECT * FROM</span></span><br><span class="line"><span class="string">             users</span></span><br><span class="line"><span class="string">           WHERE id &gt; 100</span></span><br><span class="line"><span class="string">           ORDER BY name DESC&quot;</span><span class="string">&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>还需要注意到，多行字符串前面共同的空格会被去掉，即：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">...........SELECT * FROM</span></span><br><span class="line"><span class="string">...........  users</span></span><br><span class="line"><span class="string">...........WHERE id &gt; 100</span></span><br><span class="line"><span class="string">...........ORDER BY name DESC</span></span><br><span class="line"><span class="string">...........&quot;</span><span class="string">&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>用<code>.</code>标注的空格都会被去掉。</p>
+<p>如果多行字符串的排版不规则，那么，去掉的空格就会变成这样：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">.........  SELECT * FROM</span></span><br><span class="line"><span class="string">.........    users</span></span><br><span class="line"><span class="string">.........WHERE id &gt; 100</span></span><br><span class="line"><span class="string">.........  ORDER BY name DESC</span></span><br><span class="line"><span class="string">.........  &quot;</span><span class="string">&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>即总是以最短的行首空格为基准。</p>
+<h4 id="不可变特性"><a href="#不可变特性" class="headerlink" title="不可变特性"></a>不可变特性</h4><p>Java的字符串除了是一个引用类型外，还有个重要特点，就是字符串不可变:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 字符串不可变</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">        System.out.println(s); <span class="comment">// 显示 hello</span></span><br><span class="line">        s = <span class="string">&quot;world&quot;</span>;</span><br><span class="line">        System.out.println(s); <span class="comment">// 显示 world</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行<code>String s = &quot;hello&quot;;</code>时，JVM虚拟机先创建字符串<code>&quot;hello&quot;</code>，然后，把字符串变量<code>s</code>指向它：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">      s</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">┌───┬───────────┬───┐</span><br><span class="line">│   │  &quot;hello&quot;  │   │</span><br><span class="line">└───┴───────────┴───┘</span><br></pre></td></tr></table></figure>
+<p>紧接着，执行<code>s = &quot;world&quot;;</code>时，JVM虚拟机先创建字符串<code>&quot;world&quot;</code>，然后，把字符串变量<code>s</code>指向它：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">      s ──────────────┐</span><br><span class="line">                      │</span><br><span class="line">                      ▼</span><br><span class="line">┌───┬───────────┬───┬───────────┬───┐</span><br><span class="line">│   │  &quot;hello&quot;  │   │  &quot;world&quot;  │   │</span><br><span class="line">└───┴───────────┴───┴───────────┴───┘</span><br></pre></td></tr></table></figure>
+<p>原来的字符串<code>&quot;hello&quot;</code>还在，只是我们无法通过变量<code>s</code>访问它而已。因此，字符串的不可变是指字符串内容不可变。</p>
+<h4 id="空值null"><a href="#空值null" class="headerlink" title="空值null"></a>空值null</h4><p>引用类型的变量可以指向一个空值<code>null</code>，它表示不存在，即该变量不指向任何对象。例如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s1 = <span class="keyword">null</span>; <span class="comment">// s1是null</span></span><br><span class="line">String s2; <span class="comment">// 没有赋初值值，s2也是null</span></span><br><span class="line">String s3 = s1; <span class="comment">// s3也是null</span></span><br><span class="line">String s4 = <span class="string">&quot;&quot;</span>; <span class="comment">// s4指向空字符串，不是null</span></span><br></pre></td></tr></table></figure>
+<p>注意要区分空值<code>null</code>和空字符串<code>&quot;&quot;</code>，空字符串是一个有效的字符串对象，它不等于<code>null</code></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>程序基础</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>程序基础</tag>
+      </tags>
+  </entry>
 </search>
