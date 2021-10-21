@@ -436,4 +436,43 @@
         <tag>程序基础</tag>
       </tags>
   </entry>
+  <entry>
+    <title>布尔运算</title>
+    <url>/2021/10/21/%E5%B8%83%E5%B0%94%E8%BF%90%E7%AE%97/</url>
+    <content><![CDATA[<p>对于布尔类型<code>boolean</code>，永远只有<code>true</code>和<code>false</code>两个值</p>
+<h4 id="关系运算"><a href="#关系运算" class="headerlink" title="关系运算"></a>关系运算</h4><ul>
+<li>比较运算符：<code>&gt;</code>，<code>&gt;=</code>，<code>&lt;</code>，<code>&lt;=</code>，<code>==</code>，<code>!=</code></li>
+<li>与运算 <code>&amp;&amp;</code></li>
+<li>或运算 <code>||</code></li>
+<li>非运算 <code>!</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">boolean</span> isGreater = <span class="number">5</span> &gt; <span class="number">3</span>; <span class="comment">// true</span></span><br><span class="line"><span class="keyword">int</span> age = <span class="number">12</span>;</span><br><span class="line"><span class="keyword">boolean</span> isZero = age == <span class="number">0</span>; <span class="comment">// false</span></span><br><span class="line"><span class="keyword">boolean</span> isNonZero = !isZero; <span class="comment">// true</span></span><br><span class="line"><span class="keyword">boolean</span> isAdult = age &gt;= <span class="number">18</span>; <span class="comment">// false</span></span><br><span class="line"><span class="keyword">boolean</span> isTeenager = age &gt;<span class="number">6</span> &amp;&amp; age &lt;<span class="number">18</span>; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>关系运算符的优先级从高到低依次是：</p>
+<ul>
+<li><code>!</code></li>
+<li><code>&gt;</code>，<code>&gt;=</code>，<code>&lt;</code>，<code>&lt;=</code></li>
+<li><code>==</code>，<code>!=</code></li>
+<li><code>&amp;&amp;</code></li>
+<li><code>||</code></li>
+</ul>
+<h4 id="短路运算"><a href="#短路运算" class="headerlink" title="短路运算"></a>短路运算</h4><p>如果一个布尔运算的表达式能提前确定结果，则后续的计算不再执行，直接返回结果。</p>
+<p>因为<code>false &amp;&amp; x</code>的结果总是<code>false</code>，无论<code>x</code>是<code>true</code>还是<code>false</code>，因此，与运算在确定第一个值为<code>false</code>后，不再继续计算，而是直接返回<code>false</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 短路运算</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> b = <span class="number">5</span> &lt; <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">boolean</span> result = b &amp;&amp; (<span class="number">5</span> / <span class="number">0</span> &gt; <span class="number">0</span>);</span><br><span class="line">        System.out.println(result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果没有短路运算，<code>&amp;&amp;</code>后面的表达式会由于除数为<code>0</code>而报错，但实际上该语句并未报错，原因在于与运算是短路运算符，提前计算出了结果<code>false</code></p>
+<p>类似的，对于<code>||</code>运算，只要能确定第一个值为<code>true</code>，后续计算也不再进行，而是直接返回<code>true</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">boolean</span> result = <span class="keyword">true</span> || (<span class="number">5</span> / <span class="number">0</span> &gt; <span class="number">0</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h4 id="三元运算符"><a href="#三元运算符" class="headerlink" title="三元运算符"></a>三元运算符</h4><p>Java还提供了一个三元运算符<code>b ? x : y</code>，它根据第一个布尔表达式的结果，分别返回后续两个表达式之一的计算结果：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 三元运算</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = -<span class="number">100</span>;</span><br><span class="line">        <span class="keyword">int</span> x = n &gt;= <span class="number">0</span> ? n : -n;</span><br><span class="line">        System.out.println(x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述语句的意思是，判断<code>n &gt;= 0</code>是否成立，如果为<code>true</code>，则返回<code>n</code>，否则返回<code>-n</code>。这实际上是一个求绝对值的表达式</p>
+<p>注意到三元运算<code>b ? x : y</code>会首先计算<code>b</code>，如果<code>b</code>为<code>true</code>，则只计算<code>x</code>，否则，只计算<code>y</code>。此外，<code>x</code>和<code>y</code>的类型必须相同，因为返回值不是<code>boolean</code>，而是<code>x</code>和<code>y</code>之一</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>程序基础</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>程序基础</tag>
+      </tags>
+  </entry>
 </search>
