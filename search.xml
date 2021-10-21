@@ -17,25 +17,25 @@
   <entry>
     <title>玩客云重刷armbian</title>
     <url>/2021/04/19/%E7%8E%A9%E5%AE%A2%E4%BA%91%E9%87%8D%E5%88%B7armbian/</url>
-    <content><![CDATA[<h4 id="1-下载相应文件"><a href="#1-下载相应文件" class="headerlink" title="1.下载相应文件"></a>1.下载相应文件</h4><p>（1）下载系统，链接: <a href="https://pan.baidu.com/s/1phOeXjFY4gwWS7rmhK-mqQ">https://pan.baidu.com/s/1phOeXjFY4gwWS7rmhK-mqQ</a> 提取码: a8p4<br>备用链接：<a href="http://demo.yunwk.top:82/wky/wanke-emmc.7z">http://demo.yunwk.top:82/wky/wanke-emmc.7z</a></p>
+    <content><![CDATA[<h4 id="下载相应文件"><a href="#下载相应文件" class="headerlink" title="下载相应文件"></a>下载相应文件</h4><p>（1）下载系统，链接: <a href="https://pan.baidu.com/s/1phOeXjFY4gwWS7rmhK-mqQ">https://pan.baidu.com/s/1phOeXjFY4gwWS7rmhK-mqQ</a> 提取码: a8p4<br>备用链接：<a href="http://demo.yunwk.top:82/wky/wanke-emmc.7z">http://demo.yunwk.top:82/wky/wanke-emmc.7z</a></p>
 <p>（2）下载磁盘写入工具Win32DiskImager，链接如下：链接: <a href="https://pan.baidu.com/s/1mHVSSV6P7VQotJJfyq50mA">https://pan.baidu.com/s/1mHVSSV6P7VQotJJfyq50mA</a> 提取码: 5c7n<br>备用链接：<a href="http://demo.yunwk.top:82/N1/U盘写入工具.rar">http://demo.yunwk.top:82/N1/U盘写入工具.rar</a></p>
 <p>（3）推荐下载磁盘写入工具Balenaetcher，链接如下：链接：<a href="https://www.balena.io/etcher/">https://www.balena.io/etcher/</a></p>
-<h4 id="2-用Win32DiskImager将系统写入U盘"><a href="#2-用Win32DiskImager将系统写入U盘" class="headerlink" title="2.用Win32DiskImager将系统写入U盘"></a>2.用Win32DiskImager将系统写入U盘</h4><p>（1）如果你是下载Balenaetcher，请到第3步</p>
+<h4 id="用Win32DiskImager将系统写入U盘"><a href="#用Win32DiskImager将系统写入U盘" class="headerlink" title="用Win32DiskImager将系统写入U盘"></a>用Win32DiskImager将系统写入U盘</h4><p>（1）如果你是下载Balenaetcher，请到第3步</p>
 <p>（2）将下载的系统(若为.img后缀为已解压文件)解压，插入你要作系统盘的硬盘（U盘）</p>
 <p>（3）确保你的硬盘（U盘）只有一个分区，如果不是或者不确定请执行以下操作。打开Windows系统文件管理-&gt;右键此电脑-&gt;点击管理-&gt;点击磁盘管理,然后选择你的U盘，右键删除所有分区，然后右键新建分区，右键执行格式化。</p>
 <p>（4）打开解压的U盘写入工具文件夹，双击Win32DiskImager.exe文件，Image File选择你要刷的系统，Device选择你的硬盘（U盘），然后点击Write，等待完成。</p>
 <p>（5）注意：win8/win10 写入u盘镜像后可能会弹出要求格式化u盘的对话框，请忽略请无视请勿格式化！</p>
 <p>（6）完成以上操作之后拔掉你的硬盘（U盘），请到第4步</p>
-<h4 id="3-用Balenaetcher将系统写入U盘"><a href="#3-用Balenaetcher将系统写入U盘" class="headerlink" title="3.用Balenaetcher将系统写入U盘"></a>3.用Balenaetcher将系统写入U盘</h4><p>（1）如果你是下载Win32DiskImager，请到第2步</p>
+<h4 id="用Balenaetcher将系统写入U盘"><a href="#用Balenaetcher将系统写入U盘" class="headerlink" title="用Balenaetcher将系统写入U盘"></a>用Balenaetcher将系统写入U盘</h4><p>（1）如果你是下载Win32DiskImager，请到第2步</p>
 <p>（2）将下载的系统(若为.img后缀为已解压文件)解压，插入你要作系统盘的硬盘（U盘）</p>
 <p>（3）双击balenaetcher.exe文件，进行安装Balenaetcher，安装完成之后打开Balenaetcher。Select image选择你要刷的系统，Select target选择你的硬盘（U盘），然后点击Finsh，等待完成。</p>
 <p>（4）注意：win8/win10 写入u盘镜像后可能会弹出要求格式化u盘的对话框，请忽略请无视请勿格式化！</p>
 <p>（5）完成以上操作之后拔掉你的硬盘（U盘），请到第4步</p>
-<h4 id="4-刷入系统到玩客云emmc"><a href="#4-刷入系统到玩客云emmc" class="headerlink" title="4.刷入系统到玩客云emmc"></a>4.刷入系统到玩客云emmc</h4><p>（1）将你的玩客云断电，就是拔掉电源</p>
+<h4 id="刷入系统到玩客云emmc"><a href="#刷入系统到玩客云emmc" class="headerlink" title="刷入系统到玩客云emmc"></a>刷入系统到玩客云emmc</h4><p>（1）将你的玩客云断电，就是拔掉电源</p>
 <p>（2）将写好后的U盘插入玩客云靠近网口的那个usb接口，然后插上电源</p>
 <p>（3）等待一段时间，服务器面板灯会红蓝交替闪烁，等到面板灯不再闪烁后拔掉U盘，拔掉电源重启。</p>
 <p>（4）如果你在（3）没看到面板闪烁，请不要动U盘，拔掉电源重启。</p>
-<h4 id="5-更改SSH密码以及去除SSH的广告（非必要）"><a href="#5-更改SSH密码以及去除SSH的广告（非必要）" class="headerlink" title="5.更改SSH密码以及去除SSH的广告（非必要）"></a>5.更改SSH密码以及去除SSH的广告（非必要）</h4><p>（1）进入路由器管理界面，一般为192.168.1.1</p>
+<h4 id="更改SSH密码以及去除SSH的广告（非必要）"><a href="#更改SSH密码以及去除SSH的广告（非必要）" class="headerlink" title="更改SSH密码以及去除SSH的广告（非必要）"></a>更改SSH密码以及去除SSH的广告（非必要）</h4><p>（1）进入路由器管理界面，一般为192.168.1.1</p>
 <p>（2）在DHCP 分配，查看aml的ip地址，记住这个ip地址</p>
 <p>（3）确保设备跟玩客云在同一局域网，打开SSH工具putty或者xshell，ip地址填入你刚刚看到的ip地址，端口选择20</p>
 <p>（4）登陆之后，输入登陆名称root，输入密码1234（输入密码的时候不显示）</p>
@@ -54,11 +54,11 @@
   <entry>
     <title>hexo编写文章</title>
     <url>/2021/10/21/hexo%E7%BC%96%E5%86%99%E6%96%87%E7%AB%A0/</url>
-    <content><![CDATA[<h4 id="1-新建文章"><a href="#1-新建文章" class="headerlink" title="1.新建文章"></a>1.新建文章</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> [layout] title 或  hexo n [layout] title</span><br></pre></td></tr></table></figure>
-<h4 id="2-编写文章"><a href="#2-编写文章" class="headerlink" title="2.编写文章"></a>2.编写文章</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">title: hexo编写文章</span><br><span class="line">description: hexo编写文章</span><br><span class="line">categories:</span><br><span class="line">- hexo</span><br><span class="line">- 编写文章</span><br><span class="line">tags:</span><br><span class="line">- hexo</span><br><span class="line">- 编写文章</span><br></pre></td></tr></table></figure>
-<h4 id="3-生成静态文件"><a href="#3-生成静态文件" class="headerlink" title="3.生成静态文件"></a>3.生成静态文件</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">hexo generate 或  hexo g</span><br></pre></td></tr></table></figure>
-<h4 id="4-启动本地端口（可选）"><a href="#4-启动本地端口（可选）" class="headerlink" title="4.启动本地端口（可选）"></a>4.启动本地端口（可选）</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">hexo server 或 hexo s</span><br></pre></td></tr></table></figure>
-<h4 id="5-部署文章"><a href="#5-部署文章" class="headerlink" title="5.部署文章"></a>5.部署文章</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">hexo deploy 或 hexo d</span><br></pre></td></tr></table></figure>]]></content>
+    <content><![CDATA[<h4 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> [layout] title 或  hexo n [layout] title</span><br></pre></td></tr></table></figure>
+<h4 id="编写文章"><a href="#编写文章" class="headerlink" title="编写文章"></a>编写文章</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">title: hexo编写文章</span><br><span class="line">description: hexo编写文章</span><br><span class="line">categories:</span><br><span class="line">- hexo</span><br><span class="line">- 编写文章</span><br><span class="line">tags:</span><br><span class="line">- hexo</span><br><span class="line">- 编写文章</span><br></pre></td></tr></table></figure>
+<h4 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">hexo generate 或  hexo g</span><br></pre></td></tr></table></figure>
+<h4 id="启动本地端口（可选）"><a href="#启动本地端口（可选）" class="headerlink" title="启动本地端口（可选）"></a>启动本地端口（可选）</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">hexo server 或 hexo s</span><br></pre></td></tr></table></figure>
+<h4 id="部署文章"><a href="#部署文章" class="headerlink" title="部署文章"></a>部署文章</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">hexo deploy 或 hexo d</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>hexo</category>
         <category>编写文章</category>
