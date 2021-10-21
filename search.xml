@@ -44,28 +44,222 @@
 ]]></content>
       <categories>
         <category>玩客云</category>
-        <category>重刷armbian</category>
       </categories>
       <tags>
         <tag>玩客云</tag>
-        <tag>重刷armbian</tag>
       </tags>
   </entry>
   <entry>
-    <title>hexo编写文章</title>
+    <title>Hexo编写文章</title>
     <url>/2021/10/21/hexo%E7%BC%96%E5%86%99%E6%96%87%E7%AB%A0/</url>
     <content><![CDATA[<h4 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> [layout] title 或  hexo n [layout] title</span><br></pre></td></tr></table></figure>
-<h4 id="编写文章"><a href="#编写文章" class="headerlink" title="编写文章"></a>编写文章</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">title: hexo编写文章</span><br><span class="line">description: hexo编写文章</span><br><span class="line">categories:</span><br><span class="line">- hexo</span><br><span class="line">- 编写文章</span><br><span class="line">tags:</span><br><span class="line">- hexo</span><br><span class="line">- 编写文章</span><br></pre></td></tr></table></figure>
+<h4 id="编写文章"><a href="#编写文章" class="headerlink" title="编写文章"></a>编写文章</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">title: hexo编写文章</span><br><span class="line">description: hexo编写文章</span><br><span class="line">categories:</span><br><span class="line">- hexo</span><br><span class="line">tags:</span><br><span class="line">- hexo</span><br></pre></td></tr></table></figure>
 <h4 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">hexo generate 或  hexo g</span><br></pre></td></tr></table></figure>
 <h4 id="启动本地端口（可选）"><a href="#启动本地端口（可选）" class="headerlink" title="启动本地端口（可选）"></a>启动本地端口（可选）</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">hexo server 或 hexo s</span><br></pre></td></tr></table></figure>
 <h4 id="部署文章"><a href="#部署文章" class="headerlink" title="部署文章"></a>部署文章</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">hexo deploy 或 hexo d</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>hexo</category>
-        <category>编写文章</category>
+        <category>Hexo</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
-        <tag>编写文章</tag>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java程序基本结构</title>
+    <url>/2021/10/21/Java%E7%A8%8B%E5%BA%8F%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<h4 id="类"><a href="#类" class="headerlink" title="类"></a>类</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 可以用来自动创建文档的注释</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 向屏幕输出文本:</span></span><br><span class="line">        System.out.println(<span class="string">&quot;Hello, world!&quot;</span>);</span><br><span class="line">        <span class="comment">/* 多行注释开始</span></span><br><span class="line"><span class="comment">        注释内容</span></span><br><span class="line"><span class="comment">        注释结束 */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="comment">// class定义结束</span></span><br></pre></td></tr></table></figure>
+<p>因为Java是面向对象的语言，一个程序的基本单位就是class，class是关键字，这里定义的class名字就是Hello</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123; <span class="comment">// 类名是Hello</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125; <span class="comment">// class定义结束</span></span><br></pre></td></tr></table></figure>
+<p>类名要求：</p>
+<ul>
+<li><p>类名必须以英文字母开头，后接字母，数字和下划线的组合</p>
+</li>
+<li><p>习惯以大写字母开头</p>
+</li>
+</ul>
+<p>不好的类名:</p>
+<ul>
+<li><p>hello</p>
+</li>
+<li><p>Good123</p>
+</li>
+<li><p>Note_Book</p>
+</li>
+<li><p>_World</p>
+</li>
+</ul>
+<p>注意到<code>public</code>是访问修饰符,表示该<code>class</code>是公开的</p>
+<p>不写<code>public</code>,也能正确编译,但是这个类将无法从命令行执行</p>
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><p>在<code>class</code>内部,可以定义若干方法<code>(method)</code>:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123; <span class="comment">// 方法名是main</span></span><br><span class="line">        <span class="comment">// 方法代码...</span></span><br><span class="line">    &#125; <span class="comment">// 方法定义结束</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方法定义了一组执行语句,方法内部的代码将会被依次顺序执行</p>
+<p>这里方法名是<code>main</code>,返回值是<code>void</code>,表示没有任何返回值</p>
+<p>我们注意到<code>public</code>除了可以修饰<code>class</code>外,也可以修饰方法.而关键字<code>static</code>是另一个修饰符,它表示静态方法.</p>
+<p>Java入口程序规定的方法必须是静态方法,方法名必须为<code>main</code>,括号内的参数必须是String数组.</p>
+<p>方法名爷爷命名规则,命名和<code>class</code>一样,但是首字母小写:</p>
+<p>好的方法名:</p>
+<ul>
+<li><p>main</p>
+</li>
+<li><p>goodMorning</p>
+</li>
+<li><p>playVR</p>
+</li>
+</ul>
+<p>不好的方法名：</p>
+<ul>
+<li><p>Main</p>
+</li>
+<li><p>good123</p>
+</li>
+<li><p>good_morning</p>
+</li>
+<li><p>_playVR</p>
+</li>
+</ul>
+<p>在方法内部，语句才是真正的执行代码。Java的每一行语句必须以分号结束：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello, world!&quot;</span>); <span class="comment">// 语句</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p>注释是一种给人阅读的文本，不是程序的一部分，所以编译器会自动忽略注释</p>
+<p>Java有3种注释，第一种是单行注释，以双斜线开头，直到这一行的结尾结束：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//这里是注释。。。</span></span><br></pre></td></tr></table></figure>
+<p>而多行注释以<code>/*</code>星号开头，以<code>*/</code>结束，可以有多行：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">这里是注释</span></span><br><span class="line"><span class="comment">这里也是注释</span></span><br><span class="line"><span class="comment">这里还是注释</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>还有一种写在类和方法的定义处，用于自动创建文档，以<code>/**</code>开头，以<code>*/</code>结束，如果有多行，每行通常以星号开头：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 可以用来自动创建文档的注释</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@auther</span> liaoxuefeng</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello, world!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>程序基础</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>程序基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown代码</title>
+    <url>/2021/10/21/Markdown%E4%BB%A3%E7%A0%81/</url>
+    <content><![CDATA[<h4 id="段落代码"><a href="#段落代码" class="headerlink" title="段落代码"></a>段落代码</h4><p>如果是段落上的一个函数或片段的代码可以用反引号把它包起来（<strong>`</strong>），例如：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="code">`printf()`</span> 函数</span><br></pre></td></tr></table></figure>
+<h4 id="代码段"><a href="#代码段" class="headerlink" title="代码段"></a>代码段</h4><p>用 <strong>```</strong> 包裹一段代码，并指定一种语言（也可以不指定）：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="code">```javascript</span></span><br><span class="line"><span class="code">$(document).ready(function () &#123;</span></span><br><span class="line"><span class="code">    alert(&#x27;RUNOOB&#x27;);</span></span><br><span class="line"><span class="code">&#125;);</span></span><br><span class="line"><span class="code">```</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown区块</title>
+    <url>/2021/10/21/Markdown%E5%8C%BA%E5%9D%97/</url>
+    <content><![CDATA[<h4 id="区块"><a href="#区块" class="headerlink" title="区块"></a>区块</h4><p>区块引用是在段落开头使用 <strong>&gt;</strong> 符号 ，然后后面紧跟一个<strong>空格</strong>符号：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="quote">&gt; 区块引用</span></span><br></pre></td></tr></table></figure>
+<h4 id="区块嵌套"><a href="#区块嵌套" class="headerlink" title="区块嵌套"></a>区块嵌套</h4><p>一个 <strong>&gt;</strong> 符号是最外层，两个 <strong>&gt;</strong> 符号是第一层嵌套，以此类推：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="quote">&gt; 最外层</span></span><br><span class="line"><span class="quote">&gt; &gt; 第一层嵌套</span></span><br><span class="line"><span class="quote">&gt; &gt; &gt; 第二层嵌套</span></span><br></pre></td></tr></table></figure>
+<h4 id="区块中使用列表"><a href="#区块中使用列表" class="headerlink" title="区块中使用列表"></a>区块中使用列表</h4><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="quote">&gt; 区块中使用列表</span></span><br><span class="line"><span class="quote">&gt; 1. 第一项</span></span><br><span class="line"><span class="quote">&gt; 2. 第二项</span></span><br><span class="line"><span class="quote">&gt; + 第一项</span></span><br><span class="line"><span class="quote">&gt; + 第二项</span></span><br><span class="line"><span class="quote">&gt; + 第三项</span></span><br></pre></td></tr></table></figure>
+<h4 id="列表中使用区块"><a href="#列表中使用区块" class="headerlink" title="列表中使用区块"></a>列表中使用区块</h4><p>在列表项目内放进区块，那么就需要在 <strong>&gt;</strong> 前添加四个空格的缩进。</p>
+<p>列表中使用区块实例如下：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">*</span> 第一项</span><br><span class="line"><span class="code">    &gt; 菜鸟教程</span></span><br><span class="line"><span class="code">    &gt; 学的不仅是技术更是梦想</span></span><br><span class="line"><span class="code">* 第二项</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown表格</title>
+    <url>/2021/10/21/Markdown%E8%A1%A8%E6%A0%BC/</url>
+    <content><![CDATA[<h4 id="表格制作"><a href="#表格制作" class="headerlink" title="表格制作"></a>表格制作</h4><p>制作表格使用 <strong>|</strong> 来分隔不同的单元格，使用 <strong>-</strong> 来分隔表头和其他行。</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">|  表头   | 表头  |</span><br><span class="line">|  ----  | ----  |</span><br><span class="line">| 单元格  | 单元格 |</span><br><span class="line">| 单元格  | 单元格 |</span><br></pre></td></tr></table></figure>
+<h4 id="对齐方式"><a href="#对齐方式" class="headerlink" title="对齐方式"></a>对齐方式</h4><ul>
+<li><p><strong>-:</strong> 设置内容和标题栏居右对齐。</p>
+</li>
+<li><p><strong>:-</strong> 设置内容和标题栏居左对齐。</p>
+</li>
+<li><p><strong>:-:</strong> 设置内容和标题栏居中对齐。</p>
+</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">| 左对齐 | 右对齐 | 居中对齐 |</span><br><span class="line">| :-----| ----: | :----: |</span><br><span class="line">| 单元格 | 单元格 | 单元格 |</span><br><span class="line">| 单元格 | 单元格 | 单元格 |</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown标题</title>
+    <url>/2021/10/21/Markdown%E6%A0%87%E9%A2%98/</url>
+    <content><![CDATA[<h4 id="使用-和-标记一级和二级标题"><a href="#使用-和-标记一级和二级标题" class="headerlink" title="使用 = 和 - 标记一级和二级标题"></a>使用 = 和 - 标记一级和二级标题</h4><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">一级标题</span><br><span class="line">=================</span><br><span class="line"></span><br><span class="line">二级标题</span><br><span class="line">-----------------</span><br></pre></td></tr></table></figure>
+<h4 id="使用-号标记"><a href="#使用-号标记" class="headerlink" title="使用 # 号标记"></a>使用 # 号标记</h4><p>使用 <strong>#</strong> 号可表示 1-6 级标题，一级标题对应一个 <strong>#</strong> 号，二级标题对应两个 <strong>#</strong> 号，以此类推</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 一级标题</span></span><br><span class="line"><span class="section">## 二级标题</span></span><br><span class="line"><span class="section">### 三级标题</span></span><br><span class="line"><span class="section">#### 四级标题</span></span><br><span class="line"><span class="section">##### 五级标题</span></span><br><span class="line"><span class="section">###### 六级标题</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown列表</title>
+    <url>/2021/10/21/Markdown%E5%88%97%E8%A1%A8/</url>
+    <content><![CDATA[<h4 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h4><p>无序列表使用星号(<strong>*</strong>)、加号(<strong>+</strong>)或是减号(<strong>-</strong>)作为列表标记，这些标记后面要添加一个空格，然后再填写内容：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">*</span> 第一项</span><br><span class="line"><span class="bullet">*</span> 第二项</span><br><span class="line"><span class="bullet">*</span> 第三项</span><br><span class="line"></span><br><span class="line"><span class="bullet">+</span> 第一项</span><br><span class="line"><span class="bullet">+</span> 第二项</span><br><span class="line"><span class="bullet">+</span> 第三项</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> 第一项</span><br><span class="line"><span class="bullet">-</span> 第二项</span><br><span class="line"><span class="bullet">-</span> 第三项</span><br></pre></td></tr></table></figure>
+<h4 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h4><p>有序列表使用数字并加上 <strong>.</strong> 号来表示，如：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">1.</span> 第一项</span><br><span class="line"><span class="bullet">2.</span> 第二项</span><br><span class="line"><span class="bullet">3.</span> 第三项</span><br></pre></td></tr></table></figure>
+<h4 id="列表嵌套"><a href="#列表嵌套" class="headerlink" title="列表嵌套"></a>列表嵌套</h4><p>列表嵌套只需在子列表中的选项前面添加四个空格即可：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">1.</span> 第一项：</span><br><span class="line"><span class="bullet">    -</span> 第一项嵌套的第一个元素</span><br><span class="line"><span class="bullet">    -</span> 第一项嵌套的第二个元素</span><br><span class="line"><span class="bullet">2.</span> 第二项：</span><br><span class="line"><span class="bullet">    -</span> 第二项嵌套的第一个元素</span><br><span class="line"><span class="bullet">    -</span> 第二项嵌套的第二个元素</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown链接与图片</title>
+    <url>/2021/10/21/Markdown%E9%93%BE%E6%8E%A5%E4%B8%8E%E5%9B%BE%E7%89%87/</url>
+    <content><![CDATA[<h4 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h4><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[<span class="string">链接名称</span>](<span class="link">链接地址</span>)</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">&lt;链接地址&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h4><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">![<span class="string">alt 属性文本</span>](<span class="link">图片地址</span>)</span><br><span class="line"></span><br><span class="line">![<span class="string">alt 属性文本</span>](<span class="link">图片地址 &quot;可选标题&quot;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>开头一个感叹号 !</li>
+<li>接着一个方括号，里面放上图片的替代文字</li>
+<li>接着一个普通括号，里面放上图片的网址，最后还可以用引号包住并加上选择性的 ‘title’ 属性的文字。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown段落</title>
+    <url>/2021/10/21/Markdown%E6%AE%B5%E8%90%BD/</url>
+    <content><![CDATA[<h4 id="段落"><a href="#段落" class="headerlink" title="段落"></a>段落</h4><ul>
+<li><p>段落的换行是使用两个以上空格加上回车</p>
+</li>
+<li><p>在段落后面使用一个空行来表示重新开始一个段落</p>
+</li>
+</ul>
+<h4 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h4><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="emphasis">*斜体文本*</span></span><br><span class="line"><span class="emphasis">_斜体文本_</span></span><br><span class="line"><span class="strong">**粗体文本**</span></span><br><span class="line"><span class="strong">__粗体文本__</span></span><br><span class="line"><span class="strong">**<span class="emphasis">*粗斜体文本<span class="strong">**<span class="emphasis">*</span></span></span></span></span><br><span class="line"><span class="strong"><span class="emphasis"><span class="strong"><span class="emphasis"><span class="strong">__<span class="emphasis">_粗斜体文本<span class="strong">__<span class="emphasis">_</span></span></span></span></span></span></span></span></span><br></pre></td></tr></table></figure>
+<h4 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h4><p>可以在一行中用三个以上的星号、减号、底线来建立一个分隔线，行内不能有其他东西，也可以在星号或是减号中间插入空格</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="strong">**<span class="emphasis">*</span></span></span><br><span class="line"><span class="strong"><span class="emphasis"></span></span></span><br><span class="line"><span class="strong"><span class="emphasis">*</span> <span class="emphasis">* *</span></span></span><br><span class="line"><span class="strong"></span></span><br><span class="line"><span class="strong">**</span><span class="strong">**<span class="emphasis">*</span></span></span><br><span class="line"><span class="strong"><span class="emphasis"></span></span></span><br><span class="line"><span class="strong"><span class="emphasis">- - -</span></span></span><br><span class="line"><span class="strong"><span class="emphasis"></span></span></span><br><span class="line"><span class="strong"><span class="emphasis">----------</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="删除线"><a href="#删除线" class="headerlink" title="删除线"></a>删除线</h4><p>如果段落上的文字要添加删除线，只需要在文字的两端加上两个波浪线 <strong>~~</strong> 即可</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">~~删除线~~</span><br></pre></td></tr></table></figure>
+<h4 id="下划线"><a href="#下划线" class="headerlink" title="下划线"></a>下划线</h4><p>下划线可以通过 HTML 的 <strong><u></strong> 标签来实现：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">u</span>&gt;</span></span>带下划线文本<span class="xml"><span class="tag">&lt;/<span class="name">u</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h4><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[^要注明的文本]</span><br></pre></td></tr></table></figure>
+<p>比如说</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">创建脚注格式类似这样 [^脚注]。</span><br><span class="line"></span><br><span class="line">[<span class="symbol">^脚注</span>]: <span class="link">这里是脚注注释的内容！！！</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
       </tags>
   </entry>
 </search>
