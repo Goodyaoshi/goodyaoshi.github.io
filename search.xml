@@ -51,4 +51,21 @@
         <tag>重刷armbian</tag>
       </tags>
   </entry>
+  <entry>
+    <title>hexo编写文章</title>
+    <url>/2021/10/21/hexo%E7%BC%96%E5%86%99%E6%96%87%E7%AB%A0/</url>
+    <content><![CDATA[<h4 id="1-新建文章"><a href="#1-新建文章" class="headerlink" title="1.新建文章"></a>1.新建文章</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> [layout] title 或  hexo n [layout] title</span><br></pre></td></tr></table></figure>
+<h4 id="2-编写文章"><a href="#2-编写文章" class="headerlink" title="2.编写文章"></a>2.编写文章</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">title: hexo编写文章</span><br><span class="line">description: hexo编写文章</span><br><span class="line">categories:</span><br><span class="line">- hexo</span><br><span class="line">- 编写文章</span><br><span class="line">tags:</span><br><span class="line">- hexo</span><br><span class="line">- 编写文章</span><br></pre></td></tr></table></figure>
+<h4 id="3-生成静态文件"><a href="#3-生成静态文件" class="headerlink" title="3.生成静态文件"></a>3.生成静态文件</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">hexo generate 或  hexo g</span><br></pre></td></tr></table></figure>
+<h4 id="4-启动本地端口（可选）"><a href="#4-启动本地端口（可选）" class="headerlink" title="4.启动本地端口（可选）"></a>4.启动本地端口（可选）</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">hexo server 或 hexo s</span><br></pre></td></tr></table></figure>
+<h4 id="5-部署文章"><a href="#5-部署文章" class="headerlink" title="5.部署文章"></a>5.部署文章</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">hexo deploy 或 hexo d</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>hexo</category>
+        <category>编写文章</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>编写文章</tag>
+      </tags>
+  </entry>
 </search>
