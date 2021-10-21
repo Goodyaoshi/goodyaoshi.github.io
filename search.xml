@@ -43,10 +43,10 @@
 <p>（6）去除广告，输入sed -i “s|$PRETTY_NAME Mr-Li,QQ:691048250|$PRETTY_NAME|g”  /etc/update-motd.d/10-armbian-header</p>
 ]]></content>
       <categories>
-        <category>玩客云</category>
+        <category>Armbian</category>
       </categories>
       <tags>
-        <tag>玩客云</tag>
+        <tag>Armbian</tag>
       </tags>
   </entry>
   <entry>
