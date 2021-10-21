@@ -402,4 +402,38 @@
         <tag>程序基础</tag>
       </tags>
   </entry>
+  <entry>
+    <title>浮点数运算</title>
+    <url>/2021/10/21/%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97/</url>
+    <content><![CDATA[<p>浮点数运算和整数运算相比，只能进行加减乘除这些数值计算，不能做位运算和移位运算</p>
+<h4 id="误差"><a href="#误差" class="headerlink" title="误差"></a>误差</h4><p>在计算机中，浮点数虽然表示的范围大，但是，浮点数有个非常重要的特点，就是浮点数常常无法精确表示</p>
+<p>因为浮点数常常无法精确表示，因此，浮点数运算会产生误差：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 浮点数运算误差</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> x = <span class="number">1.0</span> / <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">double</span> y = <span class="number">1</span> - <span class="number">9.0</span> / <span class="number">10</span>;</span><br><span class="line">        <span class="comment">// 观察x和y是否相等:</span></span><br><span class="line">        System.out.println(x);</span><br><span class="line">        System.out.println(y);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于浮点数存在运算误差，所以比较两个浮点数是否相等常常会出现错误的结果。正确的比较方法是判断两个浮点数之差的绝对值是否小于一个很小的数：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 比较x和y是否相等，先计算其差的绝对值:</span></span><br><span class="line"><span class="keyword">double</span> r = Math.abs(x - y);</span><br><span class="line"><span class="comment">// 再判断绝对值是否足够小:</span></span><br><span class="line"><span class="keyword">if</span> (r &lt; <span class="number">0.00001</span>) &#123;</span><br><span class="line">    <span class="comment">// 可以认为相等</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 不相等</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>浮点数在内存的表示方法和整数比更加复杂</p>
+<h4 id="类型提升"><a href="#类型提升" class="headerlink" title="类型提升"></a>类型提升</h4><p>在一个复杂的四则运算中，两个整数的运算不会出现自动提升的情况：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">double</span> d = <span class="number">1.2</span> + <span class="number">24</span> / <span class="number">5</span>; <span class="comment">// 5.2</span></span><br></pre></td></tr></table></figure>
+<p>计算结果为<code>5.2</code>，原因是编译器计算<code>24 / 5</code>这个子表达式时，按两个整数进行运算，结果仍为整数<code>4</code></p>
+<h4 id="溢出"><a href="#溢出" class="headerlink" title="溢出"></a>溢出</h4><p>整数运算在除数为<code>0</code>时会报错，而浮点数运算在除数为<code>0</code>时，不会报错，但会返回几个特殊值：</p>
+<ul>
+<li><code>NaN</code>表示Not a Number</li>
+<li><code>Infinity</code>表示无穷大</li>
+<li><code>-Infinity</code>表示负无穷大</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">double</span> d1 = <span class="number">0.0</span> / <span class="number">0</span>; <span class="comment">// NaN</span></span><br><span class="line"><span class="keyword">double</span> d2 = <span class="number">1.0</span> / <span class="number">0</span>; <span class="comment">// Infinity</span></span><br><span class="line"><span class="keyword">double</span> d3 = -<span class="number">1.0</span> / <span class="number">0</span>; <span class="comment">// -Infinity</span></span><br></pre></td></tr></table></figure>
+<h4 id="强制转型"><a href="#强制转型" class="headerlink" title="强制转型"></a>强制转型</h4><p>可以将浮点数强制转型为整数。在转型时，浮点数的小数部分会被丢掉。如果转型后超过了整型能表示的最大范围，将返回整型的最大值：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> n1 = (<span class="keyword">int</span>) <span class="number">12.3</span>; <span class="comment">// 12</span></span><br><span class="line"><span class="keyword">int</span> n2 = (<span class="keyword">int</span>) <span class="number">12.7</span>; <span class="comment">// 12</span></span><br><span class="line"><span class="keyword">int</span> n2 = (<span class="keyword">int</span>) -<span class="number">12.7</span>; <span class="comment">// -12</span></span><br><span class="line"><span class="keyword">int</span> n3 = (<span class="keyword">int</span>) (<span class="number">12.7</span> + <span class="number">0.5</span>); <span class="comment">// 13</span></span><br><span class="line"><span class="keyword">int</span> n4 = (<span class="keyword">int</span>) <span class="number">1.2e20</span>; <span class="comment">// 2147483647</span></span><br></pre></td></tr></table></figure>
+<p>如果要进行四舍五入，可以对浮点数加上0.5再强制转型：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 四舍五入</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> d = <span class="number">2.6</span>;</span><br><span class="line">        <span class="keyword">int</span> n = (<span class="keyword">int</span>) (d + <span class="number">0.5</span>);</span><br><span class="line">        System.out.println(n);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>程序基础</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>程序基础</tag>
+      </tags>
+  </entry>
 </search>
