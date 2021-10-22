@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Hello World</title>
-    <url>/2021/04/08/hello-world/</url>
+    <url>/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
@@ -15,8 +15,47 @@
 ]]></content>
   </entry>
   <entry>
+    <title>布尔运算</title>
+    <url>/%E5%B8%83%E5%B0%94%E8%BF%90%E7%AE%97/</url>
+    <content><![CDATA[<p>对于布尔类型<code>boolean</code>，永远只有<code>true</code>和<code>false</code>两个值</p>
+<h4 id="关系运算"><a href="#关系运算" class="headerlink" title="关系运算"></a>关系运算</h4><ul>
+<li>比较运算符：<code>&gt;</code>，<code>&gt;=</code>，<code>&lt;</code>，<code>&lt;=</code>，<code>==</code>，<code>!=</code></li>
+<li>与运算 <code>&amp;&amp;</code></li>
+<li>或运算 <code>||</code></li>
+<li>非运算 <code>!</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">boolean</span> isGreater = <span class="number">5</span> &gt; <span class="number">3</span>; <span class="comment">// true</span></span><br><span class="line"><span class="keyword">int</span> age = <span class="number">12</span>;</span><br><span class="line"><span class="keyword">boolean</span> isZero = age == <span class="number">0</span>; <span class="comment">// false</span></span><br><span class="line"><span class="keyword">boolean</span> isNonZero = !isZero; <span class="comment">// true</span></span><br><span class="line"><span class="keyword">boolean</span> isAdult = age &gt;= <span class="number">18</span>; <span class="comment">// false</span></span><br><span class="line"><span class="keyword">boolean</span> isTeenager = age &gt;<span class="number">6</span> &amp;&amp; age &lt;<span class="number">18</span>; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>关系运算符的优先级从高到低依次是：</p>
+<ul>
+<li><code>!</code></li>
+<li><code>&gt;</code>，<code>&gt;=</code>，<code>&lt;</code>，<code>&lt;=</code></li>
+<li><code>==</code>，<code>!=</code></li>
+<li><code>&amp;&amp;</code></li>
+<li><code>||</code></li>
+</ul>
+<h4 id="短路运算"><a href="#短路运算" class="headerlink" title="短路运算"></a>短路运算</h4><p>如果一个布尔运算的表达式能提前确定结果，则后续的计算不再执行，直接返回结果。</p>
+<p>因为<code>false &amp;&amp; x</code>的结果总是<code>false</code>，无论<code>x</code>是<code>true</code>还是<code>false</code>，因此，与运算在确定第一个值为<code>false</code>后，不再继续计算，而是直接返回<code>false</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 短路运算</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> b = <span class="number">5</span> &lt; <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">boolean</span> result = b &amp;&amp; (<span class="number">5</span> / <span class="number">0</span> &gt; <span class="number">0</span>);</span><br><span class="line">        System.out.println(result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果没有短路运算，<code>&amp;&amp;</code>后面的表达式会由于除数为<code>0</code>而报错，但实际上该语句并未报错，原因在于与运算是短路运算符，提前计算出了结果<code>false</code></p>
+<p>类似的，对于<code>||</code>运算，只要能确定第一个值为<code>true</code>，后续计算也不再进行，而是直接返回<code>true</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">boolean</span> result = <span class="keyword">true</span> || (<span class="number">5</span> / <span class="number">0</span> &gt; <span class="number">0</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h4 id="三元运算符"><a href="#三元运算符" class="headerlink" title="三元运算符"></a>三元运算符</h4><p>Java还提供了一个三元运算符<code>b ? x : y</code>，它根据第一个布尔表达式的结果，分别返回后续两个表达式之一的计算结果：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 三元运算</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = -<span class="number">100</span>;</span><br><span class="line">        <span class="keyword">int</span> x = n &gt;= <span class="number">0</span> ? n : -n;</span><br><span class="line">        System.out.println(x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述语句的意思是，判断<code>n &gt;= 0</code>是否成立，如果为<code>true</code>，则返回<code>n</code>，否则返回<code>-n</code>。这实际上是一个求绝对值的表达式</p>
+<p>注意到三元运算<code>b ? x : y</code>会首先计算<code>b</code>，如果<code>b</code>为<code>true</code>，则只计算<code>x</code>，否则，只计算<code>y</code>。此外，<code>x</code>和<code>y</code>的类型必须相同，因为返回值不是<code>boolean</code>，而是<code>x</code>和<code>y</code>之一</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>程序基础</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>程序基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>玩客云重刷armbian</title>
-    <url>/2021/04/19/%E7%8E%A9%E5%AE%A2%E4%BA%91%E9%87%8D%E5%88%B7armbian/</url>
+    <url>/Armbian-%E7%8E%A9%E5%AE%A2%E4%BA%91%E9%87%8D%E5%88%B7armbian/</url>
     <content><![CDATA[<h4 id="下载相应文件"><a href="#下载相应文件" class="headerlink" title="下载相应文件"></a>下载相应文件</h4><p>（1）下载系统，链接: <a href="https://pan.baidu.com/s/1phOeXjFY4gwWS7rmhK-mqQ">https://pan.baidu.com/s/1phOeXjFY4gwWS7rmhK-mqQ</a> 提取码: a8p4<br>备用链接：<a href="http://demo.yunwk.top:82/wky/wanke-emmc.7z">http://demo.yunwk.top:82/wky/wanke-emmc.7z</a></p>
 <p>（2）下载磁盘写入工具Win32DiskImager，链接如下：链接: <a href="https://pan.baidu.com/s/1mHVSSV6P7VQotJJfyq50mA">https://pan.baidu.com/s/1mHVSSV6P7VQotJJfyq50mA</a> 提取码: 5c7n<br>备用链接：<a href="http://demo.yunwk.top:82/N1/U盘写入工具.rar">http://demo.yunwk.top:82/N1/U盘写入工具.rar</a></p>
 <p>（3）推荐下载磁盘写入工具Balenaetcher，链接如下：链接：<a href="https://www.balena.io/etcher/">https://www.balena.io/etcher/</a></p>
@@ -50,8 +89,22 @@
       </tags>
   </entry>
   <entry>
+    <title>Markdown代码</title>
+    <url>/Markdown-Markdown%E4%BB%A3%E7%A0%81/</url>
+    <content><![CDATA[<h4 id="段落代码"><a href="#段落代码" class="headerlink" title="段落代码"></a>段落代码</h4><p>如果是段落上的一个函数或片段的代码可以用反引号把它包起来（<strong>`</strong>），例如：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="code">`printf()`</span> 函数</span><br></pre></td></tr></table></figure>
+<h4 id="代码段"><a href="#代码段" class="headerlink" title="代码段"></a>代码段</h4><p>用 <strong>```</strong> 包裹一段代码，并指定一种语言（也可以不指定）：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="code">```javascript</span></span><br><span class="line"><span class="code">$(document).ready(function () &#123;</span></span><br><span class="line"><span class="code">    alert(&#x27;RUNOOB&#x27;);</span></span><br><span class="line"><span class="code">&#125;);</span></span><br><span class="line"><span class="code">```</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo编写文章</title>
-    <url>/2021/10/21/hexo%E7%BC%96%E5%86%99%E6%96%87%E7%AB%A0/</url>
+    <url>/Hexo-hexo%E7%BC%96%E5%86%99%E6%96%87%E7%AB%A0/</url>
     <content><![CDATA[<h4 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> [layout] title 或  hexo n [layout] title</span><br></pre></td></tr></table></figure>
 <h4 id="编写文章"><a href="#编写文章" class="headerlink" title="编写文章"></a>编写文章</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">title: hexo编写文章</span><br><span class="line">description: hexo编写文章</span><br><span class="line">categories:</span><br><span class="line">- hexo</span><br><span class="line">tags:</span><br><span class="line">- hexo</span><br></pre></td></tr></table></figure>
 <h4 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">hexo generate 或  hexo g</span><br></pre></td></tr></table></figure>
@@ -65,84 +118,14 @@
       </tags>
   </entry>
   <entry>
-    <title>Java程序基本结构</title>
-    <url>/2021/10/21/Java%E7%A8%8B%E5%BA%8F%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<h4 id="类"><a href="#类" class="headerlink" title="类"></a>类</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 可以用来自动创建文档的注释</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 向屏幕输出文本:</span></span><br><span class="line">        System.out.println(<span class="string">&quot;Hello, world!&quot;</span>);</span><br><span class="line">        <span class="comment">/* 多行注释开始</span></span><br><span class="line"><span class="comment">        注释内容</span></span><br><span class="line"><span class="comment">        注释结束 */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="comment">// class定义结束</span></span><br></pre></td></tr></table></figure>
-<p>因为Java是面向对象的语言，一个程序的基本单位就是class，class是关键字，这里定义的class名字就是Hello</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123; <span class="comment">// 类名是Hello</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125; <span class="comment">// class定义结束</span></span><br></pre></td></tr></table></figure>
-<p>类名要求：</p>
-<ul>
-<li><p>类名必须以英文字母开头，后接字母，数字和下划线的组合</p>
-</li>
-<li><p>习惯以大写字母开头</p>
-</li>
-</ul>
-<p>不好的类名:</p>
-<ul>
-<li><p>hello</p>
-</li>
-<li><p>Good123</p>
-</li>
-<li><p>Note_Book</p>
-</li>
-<li><p>_World</p>
-</li>
-</ul>
-<p>注意到<code>public</code>是访问修饰符,表示该<code>class</code>是公开的</p>
-<p>不写<code>public</code>,也能正确编译,但是这个类将无法从命令行执行</p>
-<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><p>在<code>class</code>内部,可以定义若干方法<code>(method)</code>:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123; <span class="comment">// 方法名是main</span></span><br><span class="line">        <span class="comment">// 方法代码...</span></span><br><span class="line">    &#125; <span class="comment">// 方法定义结束</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>方法定义了一组执行语句,方法内部的代码将会被依次顺序执行</p>
-<p>这里方法名是<code>main</code>,返回值是<code>void</code>,表示没有任何返回值</p>
-<p>我们注意到<code>public</code>除了可以修饰<code>class</code>外,也可以修饰方法.而关键字<code>static</code>是另一个修饰符,它表示静态方法.</p>
-<p>Java入口程序规定的方法必须是静态方法,方法名必须为<code>main</code>,括号内的参数必须是String数组.</p>
-<p>方法名爷爷命名规则,命名和<code>class</code>一样,但是首字母小写:</p>
-<p>好的方法名:</p>
-<ul>
-<li><p>main</p>
-</li>
-<li><p>goodMorning</p>
-</li>
-<li><p>playVR</p>
-</li>
-</ul>
-<p>不好的方法名：</p>
-<ul>
-<li><p>Main</p>
-</li>
-<li><p>good123</p>
-</li>
-<li><p>good_morning</p>
-</li>
-<li><p>_playVR</p>
-</li>
-</ul>
-<p>在方法内部，语句才是真正的执行代码。Java的每一行语句必须以分号结束：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello, world!&quot;</span>); <span class="comment">// 语句</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p>注释是一种给人阅读的文本，不是程序的一部分，所以编译器会自动忽略注释</p>
-<p>Java有3种注释，第一种是单行注释，以双斜线开头，直到这一行的结尾结束：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//这里是注释。。。</span></span><br></pre></td></tr></table></figure>
-<p>而多行注释以<code>/*</code>星号开头，以<code>*/</code>结束，可以有多行：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">这里是注释</span></span><br><span class="line"><span class="comment">这里也是注释</span></span><br><span class="line"><span class="comment">这里还是注释</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<p>还有一种写在类和方法的定义处，用于自动创建文档，以<code>/**</code>开头，以<code>*/</code>结束，如果有多行，每行通常以星号开头：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 可以用来自动创建文档的注释</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@auther</span> liaoxuefeng</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello, world!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Java</category>
-        <category>程序基础</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>程序基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Markdown代码</title>
-    <url>/2021/10/21/Markdown%E4%BB%A3%E7%A0%81/</url>
-    <content><![CDATA[<h4 id="段落代码"><a href="#段落代码" class="headerlink" title="段落代码"></a>段落代码</h4><p>如果是段落上的一个函数或片段的代码可以用反引号把它包起来（<strong>`</strong>），例如：</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="code">`printf()`</span> 函数</span><br></pre></td></tr></table></figure>
-<h4 id="代码段"><a href="#代码段" class="headerlink" title="代码段"></a>代码段</h4><p>用 <strong>```</strong> 包裹一段代码，并指定一种语言（也可以不指定）：</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="code">```javascript</span></span><br><span class="line"><span class="code">$(document).ready(function () &#123;</span></span><br><span class="line"><span class="code">    alert(&#x27;RUNOOB&#x27;);</span></span><br><span class="line"><span class="code">&#125;);</span></span><br><span class="line"><span class="code">```</span></span><br></pre></td></tr></table></figure>]]></content>
+    <title>Markdown列表</title>
+    <url>/Markdown-Markdown%E5%88%97%E8%A1%A8/</url>
+    <content><![CDATA[<h4 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h4><p>无序列表使用星号(<strong>*</strong>)、加号(<strong>+</strong>)或是减号(<strong>-</strong>)作为列表标记，这些标记后面要添加一个空格，然后再填写内容：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">*</span> 第一项</span><br><span class="line"><span class="bullet">*</span> 第二项</span><br><span class="line"><span class="bullet">*</span> 第三项</span><br><span class="line"></span><br><span class="line"><span class="bullet">+</span> 第一项</span><br><span class="line"><span class="bullet">+</span> 第二项</span><br><span class="line"><span class="bullet">+</span> 第三项</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> 第一项</span><br><span class="line"><span class="bullet">-</span> 第二项</span><br><span class="line"><span class="bullet">-</span> 第三项</span><br></pre></td></tr></table></figure>
+<h4 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h4><p>有序列表使用数字并加上 <strong>.</strong> 号来表示，如：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">1.</span> 第一项</span><br><span class="line"><span class="bullet">2.</span> 第二项</span><br><span class="line"><span class="bullet">3.</span> 第三项</span><br></pre></td></tr></table></figure>
+<h4 id="列表嵌套"><a href="#列表嵌套" class="headerlink" title="列表嵌套"></a>列表嵌套</h4><p>列表嵌套只需在子列表中的选项前面添加四个空格即可：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">1.</span> 第一项：</span><br><span class="line"><span class="bullet">    -</span> 第一项嵌套的第一个元素</span><br><span class="line"><span class="bullet">    -</span> 第一项嵌套的第二个元素</span><br><span class="line"><span class="bullet">2.</span> 第二项：</span><br><span class="line"><span class="bullet">    -</span> 第二项嵌套的第一个元素</span><br><span class="line"><span class="bullet">    -</span> 第二项嵌套的第二个元素</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Markdown</category>
       </categories>
@@ -152,7 +135,7 @@
   </entry>
   <entry>
     <title>Markdown区块</title>
-    <url>/2021/10/21/Markdown%E5%8C%BA%E5%9D%97/</url>
+    <url>/Markdown-Markdown%E5%8C%BA%E5%9D%97/</url>
     <content><![CDATA[<h4 id="区块"><a href="#区块" class="headerlink" title="区块"></a>区块</h4><p>区块引用是在段落开头使用 <strong>&gt;</strong> 符号 ，然后后面紧跟一个<strong>空格</strong>符号：</p>
 <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="quote">&gt; 区块引用</span></span><br></pre></td></tr></table></figure>
 <h4 id="区块嵌套"><a href="#区块嵌套" class="headerlink" title="区块嵌套"></a>区块嵌套</h4><p>一个 <strong>&gt;</strong> 符号是最外层，两个 <strong>&gt;</strong> 符号是第一层嵌套，以此类推：</p>
@@ -169,29 +152,8 @@
       </tags>
   </entry>
   <entry>
-    <title>Markdown表格</title>
-    <url>/2021/10/21/Markdown%E8%A1%A8%E6%A0%BC/</url>
-    <content><![CDATA[<h4 id="表格制作"><a href="#表格制作" class="headerlink" title="表格制作"></a>表格制作</h4><p>制作表格使用 <strong>|</strong> 来分隔不同的单元格，使用 <strong>-</strong> 来分隔表头和其他行。</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">|  表头   | 表头  |</span><br><span class="line">|  ----  | ----  |</span><br><span class="line">| 单元格  | 单元格 |</span><br><span class="line">| 单元格  | 单元格 |</span><br></pre></td></tr></table></figure>
-<h4 id="对齐方式"><a href="#对齐方式" class="headerlink" title="对齐方式"></a>对齐方式</h4><ul>
-<li><p><strong>-:</strong> 设置内容和标题栏居右对齐。</p>
-</li>
-<li><p><strong>:-</strong> 设置内容和标题栏居左对齐。</p>
-</li>
-<li><p><strong>:-:</strong> 设置内容和标题栏居中对齐。</p>
-</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">| 左对齐 | 右对齐 | 居中对齐 |</span><br><span class="line">| :-----| ----: | :----: |</span><br><span class="line">| 单元格 | 单元格 | 单元格 |</span><br><span class="line">| 单元格 | 单元格 | 单元格 |</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Markdown</category>
-      </categories>
-      <tags>
-        <tag>Markdown</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Markdown标题</title>
-    <url>/2021/10/21/Markdown%E6%A0%87%E9%A2%98/</url>
+    <url>/Markdown-Markdown%E6%A0%87%E9%A2%98/</url>
     <content><![CDATA[<h4 id="使用-和-标记一级和二级标题"><a href="#使用-和-标记一级和二级标题" class="headerlink" title="使用 = 和 - 标记一级和二级标题"></a>使用 = 和 - 标记一级和二级标题</h4><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">一级标题</span><br><span class="line">=================</span><br><span class="line"></span><br><span class="line">二级标题</span><br><span class="line">-----------------</span><br></pre></td></tr></table></figure>
 <h4 id="使用-号标记"><a href="#使用-号标记" class="headerlink" title="使用 # 号标记"></a>使用 # 号标记</h4><p>使用 <strong>#</strong> 号可表示 1-6 级标题，一级标题对应一个 <strong>#</strong> 号，二级标题对应两个 <strong>#</strong> 号，以此类推</p>
 <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 一级标题</span></span><br><span class="line"><span class="section">## 二级标题</span></span><br><span class="line"><span class="section">### 三级标题</span></span><br><span class="line"><span class="section">#### 四级标题</span></span><br><span class="line"><span class="section">##### 五级标题</span></span><br><span class="line"><span class="section">###### 六级标题</span></span><br></pre></td></tr></table></figure>]]></content>
@@ -203,42 +165,8 @@
       </tags>
   </entry>
   <entry>
-    <title>Markdown列表</title>
-    <url>/2021/10/21/Markdown%E5%88%97%E8%A1%A8/</url>
-    <content><![CDATA[<h4 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h4><p>无序列表使用星号(<strong>*</strong>)、加号(<strong>+</strong>)或是减号(<strong>-</strong>)作为列表标记，这些标记后面要添加一个空格，然后再填写内容：</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">*</span> 第一项</span><br><span class="line"><span class="bullet">*</span> 第二项</span><br><span class="line"><span class="bullet">*</span> 第三项</span><br><span class="line"></span><br><span class="line"><span class="bullet">+</span> 第一项</span><br><span class="line"><span class="bullet">+</span> 第二项</span><br><span class="line"><span class="bullet">+</span> 第三项</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> 第一项</span><br><span class="line"><span class="bullet">-</span> 第二项</span><br><span class="line"><span class="bullet">-</span> 第三项</span><br></pre></td></tr></table></figure>
-<h4 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h4><p>有序列表使用数字并加上 <strong>.</strong> 号来表示，如：</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">1.</span> 第一项</span><br><span class="line"><span class="bullet">2.</span> 第二项</span><br><span class="line"><span class="bullet">3.</span> 第三项</span><br></pre></td></tr></table></figure>
-<h4 id="列表嵌套"><a href="#列表嵌套" class="headerlink" title="列表嵌套"></a>列表嵌套</h4><p>列表嵌套只需在子列表中的选项前面添加四个空格即可：</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">1.</span> 第一项：</span><br><span class="line"><span class="bullet">    -</span> 第一项嵌套的第一个元素</span><br><span class="line"><span class="bullet">    -</span> 第一项嵌套的第二个元素</span><br><span class="line"><span class="bullet">2.</span> 第二项：</span><br><span class="line"><span class="bullet">    -</span> 第二项嵌套的第一个元素</span><br><span class="line"><span class="bullet">    -</span> 第二项嵌套的第二个元素</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Markdown</category>
-      </categories>
-      <tags>
-        <tag>Markdown</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Markdown链接与图片</title>
-    <url>/2021/10/21/Markdown%E9%93%BE%E6%8E%A5%E4%B8%8E%E5%9B%BE%E7%89%87/</url>
-    <content><![CDATA[<h4 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h4><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[<span class="string">链接名称</span>](<span class="link">链接地址</span>)</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">&lt;链接地址&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h4><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">![<span class="string">alt 属性文本</span>](<span class="link">图片地址</span>)</span><br><span class="line"></span><br><span class="line">![<span class="string">alt 属性文本</span>](<span class="link">图片地址 &quot;可选标题&quot;</span>)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>开头一个感叹号 !</li>
-<li>接着一个方括号，里面放上图片的替代文字</li>
-<li>接着一个普通括号，里面放上图片的网址，最后还可以用引号包住并加上选择性的 ‘title’ 属性的文字。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Markdown</category>
-      </categories>
-      <tags>
-        <tag>Markdown</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Markdown段落</title>
-    <url>/2021/10/21/Markdown%E6%AE%B5%E8%90%BD/</url>
+    <url>/Markdown-Markdown%E6%AE%B5%E8%90%BD/</url>
     <content><![CDATA[<h4 id="段落"><a href="#段落" class="headerlink" title="段落"></a>段落</h4><ul>
 <li><p>段落的换行是使用两个以上空格加上回车</p>
 </li>
@@ -263,8 +191,104 @@
       </tags>
   </entry>
   <entry>
+    <title>Markdown表格</title>
+    <url>/Markdown-Markdown%E8%A1%A8%E6%A0%BC/</url>
+    <content><![CDATA[<h4 id="表格制作"><a href="#表格制作" class="headerlink" title="表格制作"></a>表格制作</h4><p>制作表格使用 <strong>|</strong> 来分隔不同的单元格，使用 <strong>-</strong> 来分隔表头和其他行。</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">|  表头   | 表头  |</span><br><span class="line">|  ----  | ----  |</span><br><span class="line">| 单元格  | 单元格 |</span><br><span class="line">| 单元格  | 单元格 |</span><br></pre></td></tr></table></figure>
+<h4 id="对齐方式"><a href="#对齐方式" class="headerlink" title="对齐方式"></a>对齐方式</h4><ul>
+<li><p><strong>-:</strong> 设置内容和标题栏居右对齐。</p>
+</li>
+<li><p><strong>:-</strong> 设置内容和标题栏居左对齐。</p>
+</li>
+<li><p><strong>:-:</strong> 设置内容和标题栏居中对齐。</p>
+</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">| 左对齐 | 右对齐 | 居中对齐 |</span><br><span class="line">| :-----| ----: | :----: |</span><br><span class="line">| 单元格 | 单元格 | 单元格 |</span><br><span class="line">| 单元格 | 单元格 | 单元格 |</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown链接与图片</title>
+    <url>/Markdown-Markdown%E9%93%BE%E6%8E%A5%E4%B8%8E%E5%9B%BE%E7%89%87/</url>
+    <content><![CDATA[<h4 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h4><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[<span class="string">链接名称</span>](<span class="link">链接地址</span>)</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">&lt;链接地址&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h4><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">![<span class="string">alt 属性文本</span>](<span class="link">图片地址</span>)</span><br><span class="line"></span><br><span class="line">![<span class="string">alt 属性文本</span>](<span class="link">图片地址 &quot;可选标题&quot;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>开头一个感叹号 !</li>
+<li>接着一个方括号，里面放上图片的替代文字</li>
+<li>接着一个普通括号，里面放上图片的网址，最后还可以用引号包住并加上选择性的 ‘title’ 属性的文字。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>输入和输出</title>
+    <url>/%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA/</url>
+    <content><![CDATA[<h4 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h4><p>我们总是使用<code>System.out.println()</code>来向屏幕输出一些内容，<code>println</code>是print line的缩写，表示输出并换行。因此，如果输出后不想换行，可以用<code>print()</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 输出</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;A,&quot;</span>);</span><br><span class="line">        System.out.print(<span class="string">&quot;B,&quot;</span>);</span><br><span class="line">        System.out.print(<span class="string">&quot;C.&quot;</span>);</span><br><span class="line">        System.out.println();</span><br><span class="line">        System.out.println(<span class="string">&quot;END&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="格式化输出"><a href="#格式化输出" class="headerlink" title="格式化输出"></a>格式化输出</h4><p>Java不格式化输出有可能表示的数据不适合一般人来阅读：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 格式化输出</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> d = <span class="number">12900000</span>;</span><br><span class="line">        System.out.println(d); <span class="comment">// 1.29E7</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果要把数据显示成我们期望的格式，就需要使用格式化输出的功能。格式化输出使用<code>System.out.printf()</code>，通过使用占位符<code>%?</code>，<code>printf()</code>可以把后面的参数格式化成指定格式：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 格式化输出</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> d = <span class="number">3.1415926</span>;</span><br><span class="line">        System.out.printf(<span class="string">&quot;%.2f\n&quot;</span>, d); <span class="comment">// 显示两位小数3.14</span></span><br><span class="line">        System.out.printf(<span class="string">&quot;%.4f\n&quot;</span>, d); <span class="comment">// 显示4位小数3.1416</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Java的格式化功能提供了多种占位符，可以把各种数据类型“格式化”成指定的字符串：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">占位符</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">%d</td>
+<td style="text-align:left">格式化输出整数</td>
+</tr>
+<tr>
+<td style="text-align:left">%x</td>
+<td style="text-align:left">格式化输出十六进制整数</td>
+</tr>
+<tr>
+<td style="text-align:left">%f</td>
+<td style="text-align:left">格式化输出浮点数</td>
+</tr>
+<tr>
+<td style="text-align:left">%e</td>
+<td style="text-align:left">格式化输出科学计数法表示的浮点数</td>
+</tr>
+<tr>
+<td style="text-align:left">%s</td>
+<td style="text-align:left">格式化字符串</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>由于%表示占位符，因此，连续两个%%表示一个%字符本身,占位符本身还可以有更详细的格式化参数,比如将一个整数格式化成为十六进制的数：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 格式化输出</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">12345000</span>;</span><br><span class="line">        System.out.printf(<span class="string">&quot;n=%d, hex=%08x&quot;</span>, n, n); <span class="comment">// 注意，两个%占位符必须传入两个数</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h4><p>从控制台读取一个字符串和一个整数：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Scanner scanner = <span class="keyword">new</span> Scanner(System.in); <span class="comment">// 创建Scanner对象</span></span><br><span class="line">        System.out.print(<span class="string">&quot;Input your name: &quot;</span>); <span class="comment">// 打印提示</span></span><br><span class="line">        String name = scanner.nextLine(); <span class="comment">// 读取一行输入并获取字符串</span></span><br><span class="line">        System.out.print(<span class="string">&quot;Input your age: &quot;</span>); <span class="comment">// 打印提示</span></span><br><span class="line">        <span class="keyword">int</span> age = scanner.nextInt(); <span class="comment">// 读取一行输入并获取整数</span></span><br><span class="line">        System.out.printf(<span class="string">&quot;Hi, %s, you are %d\n&quot;</span>, name, age); <span class="comment">// 格式化输出</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过<code>import</code>语句导入<code>java.util.Scanner</code>，<code>import</code>是导入某个类的语句，必须放到Java源代码的开头。创建<code>Scanner</code>对象并传入<code>System.in</code>。<code>System.out</code>代表标准输出流，而<code>System.in</code>代表标准输入流。有了<code>Scanner</code>对象后，要读取用户输入的字符串，使用<code>scanner.nextLine()</code>，要读取用户输入的整数，使用<code>scanner.nextInt()</code>。<code>Scanner</code>会自动转换数据类型，因此不必手动转换。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>流程控制</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>流程控制</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>变量和数据类型</title>
-    <url>/2021/10/21/%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
+    <url>/Java-%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80-%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
     <content><![CDATA[<p>变量就是数学中代数的概念，在<code>Java</code>中，变量分为两种类型：基本类型的变量和引用类型的变量。</p>
 <p>在Java中，变量必须先定义后使用，在定义变量的时候，可以给它一个初始值：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
@@ -335,8 +359,155 @@
       </tags>
   </entry>
   <entry>
+    <title>字符和字符串</title>
+    <url>/Java-%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80-%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+    <content><![CDATA[<p>在Java中，字符和字符串是两个不同的类型</p>
+<h4 id="字符类型"><a href="#字符类型" class="headerlink" title="字符类型"></a>字符类型</h4><p>字符类型<code>char</code>是基本数据类型，它是<code>character</code>的缩写。一个<code>char</code>保存一个Unicode字符：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> c1 = <span class="string">&#x27;A&#x27;</span>;</span><br><span class="line"><span class="keyword">char</span> c2 = <span class="string">&#x27;中&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>因为Java在内存中总是使用Unicode表示字符，所以，一个英文字符和一个中文字符都用一个<code>char</code>类型表示，它们都占用两个字节。要显示一个字符的Unicode编码，只需将<code>char</code>类型直接赋值给<code>int</code>类型即可：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> n1 = <span class="string">&#x27;A&#x27;</span>; <span class="comment">// 字母“A”的Unicodde编码是65</span></span><br><span class="line"><span class="keyword">int</span> n2 = <span class="string">&#x27;中&#x27;</span>; <span class="comment">// 汉字“中”的Unicode编码是20013</span></span><br></pre></td></tr></table></figure>
+<p>还可以直接用转义字符<code>\u</code>+Unicode编码来表示一个字符：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 注意是十六进制:</span></span><br><span class="line"><span class="keyword">char</span> c3 = <span class="string">&#x27;\u0041&#x27;</span>; <span class="comment">// &#x27;A&#x27;，因为十六进制0041 = 十进制65</span></span><br><span class="line"><span class="keyword">char</span> c4 = <span class="string">&#x27;\u4e2d&#x27;</span>; <span class="comment">// &#x27;中&#x27;，因为十六进制4e2d = 十进制20013</span></span><br></pre></td></tr></table></figure>
+<h4 id="字符串类型"><a href="#字符串类型" class="headerlink" title="字符串类型"></a>字符串类型</h4><p>和<code>char</code>类型不同，字符串类型<code>String</code>是引用类型，我们用双引号<code>&quot;...&quot;</code>表示字符串。一个字符串可以存储0个到任意个字符：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;&quot;</span>; <span class="comment">// 空字符串，包含0个字符</span></span><br><span class="line">String s1 = <span class="string">&quot;A&quot;</span>; <span class="comment">// 包含一个字符</span></span><br><span class="line">String s2 = <span class="string">&quot;ABC&quot;</span>; <span class="comment">// 包含3个字符</span></span><br><span class="line">String s3 = <span class="string">&quot;中文 ABC&quot;</span>; <span class="comment">// 包含6个字符，其中有一个空格</span></span><br></pre></td></tr></table></figure>
+<p><code>&quot;abc&quot;xyz&quot;</code>，编译器就无法判断中间的引号究竟是字符串的一部分还是表示字符串结束。这个时候，我们需要借助转义字符<code>\</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;abc\&quot;xyz&quot;</span>; <span class="comment">// 包含7个字符: a, b, c, &quot;, x, y, z</span></span><br></pre></td></tr></table></figure>
+<p>因为<code>\</code>是转义字符，所以，两个<code>\\</code>表示一个<code>\</code>字符：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;abc\\xyz&quot;</span>; <span class="comment">// 包含7个字符: a, b, c, \, x, y, z</span></span><br></pre></td></tr></table></figure>
+<p>常见的转义字符包括：</p>
+<ul>
+<li><code>\&quot;</code> 表示字符<code>&quot;</code></li>
+<li><code>\&#39;</code> 表示字符<code>&#39;</code></li>
+<li><code>\\</code> 表示字符<code>\</code></li>
+<li><code>\n</code> 表示换行符</li>
+<li><code>\r</code> 表示回车符</li>
+<li><code>\t</code> 表示Tab</li>
+<li><code>\u####</code> 表示一个Unicode编码的字符</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;ABC\n\u4e2d\u6587&quot;</span>; <span class="comment">// 包含6个字符: A, B, C, 换行符, 中, 文</span></span><br></pre></td></tr></table></figure>
+<h4 id="字符串连接"><a href="#字符串连接" class="headerlink" title="字符串连接"></a>字符串连接</h4><p>Java的编译器对字符串做了特殊照顾，可以使用<code>+</code>连接任意字符串和其他数据类型，这样极大地方便了字符串的处理：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 字符串连接</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s1 = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">        String s2 = <span class="string">&quot;world&quot;</span>;</span><br><span class="line">        String s = s1 + <span class="string">&quot; &quot;</span> + s2 + <span class="string">&quot;!&quot;</span>;</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果用<code>+</code>连接字符串和其他数据类型，会将其他数据类型先自动转型为字符串，再连接：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 字符串连接</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> age = <span class="number">25</span>;</span><br><span class="line">        String s = <span class="string">&quot;age is &quot;</span> + age;</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="多行字符串"><a href="#多行字符串" class="headerlink" title="多行字符串"></a>多行字符串</h4><p>如果我们要表示多行字符串，使用+号连接会非常不方便：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">String s &#x3D; &quot;first line \n&quot;</span><br><span class="line">         + &quot;second line \n&quot;</span><br><span class="line">         + &quot;end&quot;;</span><br></pre></td></tr></table></figure>
+<p>从Java 13开始，字符串可以用<code>&quot;&quot;&quot;...&quot;&quot;&quot;</code>表示多行字符串（Text Blocks）了：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 多行字符串</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s = <span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">                   SELECT * FROM</span></span><br><span class="line"><span class="string">                     users</span></span><br><span class="line"><span class="string">                   WHERE id &gt; 100</span></span><br><span class="line"><span class="string">                   ORDER BY name DESC</span></span><br><span class="line"><span class="string">                   &quot;</span><span class="string">&quot;&quot;</span>;</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述多行字符串实际上是5行，在最后一个<code>DESC</code>后面还有一个<code>\n</code>。如果我们不想在字符串末尾加一个<code>\n</code>，就需要这么写：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;&quot;</span><span class="string">&quot; </span></span><br><span class="line"><span class="string">           SELECT * FROM</span></span><br><span class="line"><span class="string">             users</span></span><br><span class="line"><span class="string">           WHERE id &gt; 100</span></span><br><span class="line"><span class="string">           ORDER BY name DESC&quot;</span><span class="string">&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>还需要注意到，多行字符串前面共同的空格会被去掉，即：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">...........SELECT * FROM</span></span><br><span class="line"><span class="string">...........  users</span></span><br><span class="line"><span class="string">...........WHERE id &gt; 100</span></span><br><span class="line"><span class="string">...........ORDER BY name DESC</span></span><br><span class="line"><span class="string">...........&quot;</span><span class="string">&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>用<code>.</code>标注的空格都会被去掉。</p>
+<p>如果多行字符串的排版不规则，那么，去掉的空格就会变成这样：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">.........  SELECT * FROM</span></span><br><span class="line"><span class="string">.........    users</span></span><br><span class="line"><span class="string">.........WHERE id &gt; 100</span></span><br><span class="line"><span class="string">.........  ORDER BY name DESC</span></span><br><span class="line"><span class="string">.........  &quot;</span><span class="string">&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>即总是以最短的行首空格为基准。</p>
+<h4 id="不可变特性"><a href="#不可变特性" class="headerlink" title="不可变特性"></a>不可变特性</h4><p>Java的字符串除了是一个引用类型外，还有个重要特点，就是字符串不可变:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 字符串不可变</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">        System.out.println(s); <span class="comment">// 显示 hello</span></span><br><span class="line">        s = <span class="string">&quot;world&quot;</span>;</span><br><span class="line">        System.out.println(s); <span class="comment">// 显示 world</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行<code>String s = &quot;hello&quot;;</code>时，JVM虚拟机先创建字符串<code>&quot;hello&quot;</code>，然后，把字符串变量<code>s</code>指向它：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">      s</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">┌───┬───────────┬───┐</span><br><span class="line">│   │  &quot;hello&quot;  │   │</span><br><span class="line">└───┴───────────┴───┘</span><br></pre></td></tr></table></figure>
+<p>紧接着，执行<code>s = &quot;world&quot;;</code>时，JVM虚拟机先创建字符串<code>&quot;world&quot;</code>，然后，把字符串变量<code>s</code>指向它：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">      s ──────────────┐</span><br><span class="line">                      │</span><br><span class="line">                      ▼</span><br><span class="line">┌───┬───────────┬───┬───────────┬───┐</span><br><span class="line">│   │  &quot;hello&quot;  │   │  &quot;world&quot;  │   │</span><br><span class="line">└───┴───────────┴───┴───────────┴───┘</span><br></pre></td></tr></table></figure>
+<p>原来的字符串<code>&quot;hello&quot;</code>还在，只是我们无法通过变量<code>s</code>访问它而已。因此，字符串的不可变是指字符串内容不可变。</p>
+<h4 id="空值null"><a href="#空值null" class="headerlink" title="空值null"></a>空值null</h4><p>引用类型的变量可以指向一个空值<code>null</code>，它表示不存在，即该变量不指向任何对象。例如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s1 = <span class="keyword">null</span>; <span class="comment">// s1是null</span></span><br><span class="line">String s2; <span class="comment">// 没有赋初值值，s2也是null</span></span><br><span class="line">String s3 = s1; <span class="comment">// s3也是null</span></span><br><span class="line">String s4 = <span class="string">&quot;&quot;</span>; <span class="comment">// s4指向空字符串，不是null</span></span><br></pre></td></tr></table></figure>
+<p>注意要区分空值<code>null</code>和空字符串<code>&quot;&quot;</code>，空字符串是一个有效的字符串对象，它不等于<code>null</code></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>程序基础</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>程序基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>布尔运算</title>
+    <url>/Java-%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80-%E5%B8%83%E5%B0%94%E8%BF%90%E7%AE%97/</url>
+    <content><![CDATA[<p>对于布尔类型<code>boolean</code>，永远只有<code>true</code>和<code>false</code>两个值</p>
+<h4 id="关系运算"><a href="#关系运算" class="headerlink" title="关系运算"></a>关系运算</h4><ul>
+<li>比较运算符：<code>&gt;</code>，<code>&gt;=</code>，<code>&lt;</code>，<code>&lt;=</code>，<code>==</code>，<code>!=</code></li>
+<li>与运算 <code>&amp;&amp;</code></li>
+<li>或运算 <code>||</code></li>
+<li>非运算 <code>!</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">boolean</span> isGreater = <span class="number">5</span> &gt; <span class="number">3</span>; <span class="comment">// true</span></span><br><span class="line"><span class="keyword">int</span> age = <span class="number">12</span>;</span><br><span class="line"><span class="keyword">boolean</span> isZero = age == <span class="number">0</span>; <span class="comment">// false</span></span><br><span class="line"><span class="keyword">boolean</span> isNonZero = !isZero; <span class="comment">// true</span></span><br><span class="line"><span class="keyword">boolean</span> isAdult = age &gt;= <span class="number">18</span>; <span class="comment">// false</span></span><br><span class="line"><span class="keyword">boolean</span> isTeenager = age &gt;<span class="number">6</span> &amp;&amp; age &lt;<span class="number">18</span>; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>关系运算符的优先级从高到低依次是：</p>
+<ul>
+<li><code>!</code></li>
+<li><code>&gt;</code>，<code>&gt;=</code>，<code>&lt;</code>，<code>&lt;=</code></li>
+<li><code>==</code>，<code>!=</code></li>
+<li><code>&amp;&amp;</code></li>
+<li><code>||</code></li>
+</ul>
+<h4 id="短路运算"><a href="#短路运算" class="headerlink" title="短路运算"></a>短路运算</h4><p>如果一个布尔运算的表达式能提前确定结果，则后续的计算不再执行，直接返回结果。</p>
+<p>因为<code>false &amp;&amp; x</code>的结果总是<code>false</code>，无论<code>x</code>是<code>true</code>还是<code>false</code>，因此，与运算在确定第一个值为<code>false</code>后，不再继续计算，而是直接返回<code>false</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 短路运算</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> b = <span class="number">5</span> &lt; <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">boolean</span> result = b &amp;&amp; (<span class="number">5</span> / <span class="number">0</span> &gt; <span class="number">0</span>);</span><br><span class="line">        System.out.println(result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果没有短路运算，<code>&amp;&amp;</code>后面的表达式会由于除数为<code>0</code>而报错，但实际上该语句并未报错，原因在于与运算是短路运算符，提前计算出了结果<code>false</code></p>
+<p>类似的，对于<code>||</code>运算，只要能确定第一个值为<code>true</code>，后续计算也不再进行，而是直接返回<code>true</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">boolean</span> result = <span class="keyword">true</span> || (<span class="number">5</span> / <span class="number">0</span> &gt; <span class="number">0</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h4 id="三元运算符"><a href="#三元运算符" class="headerlink" title="三元运算符"></a>三元运算符</h4><p>Java还提供了一个三元运算符<code>b ? x : y</code>，它根据第一个布尔表达式的结果，分别返回后续两个表达式之一的计算结果：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 三元运算</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = -<span class="number">100</span>;</span><br><span class="line">        <span class="keyword">int</span> x = n &gt;= <span class="number">0</span> ? n : -n;</span><br><span class="line">        System.out.println(x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述语句的意思是，判断<code>n &gt;= 0</code>是否成立，如果为<code>true</code>，则返回<code>n</code>，否则返回<code>-n</code>。这实际上是一个求绝对值的表达式</p>
+<p>注意到三元运算<code>b ? x : y</code>会首先计算<code>b</code>，如果<code>b</code>为<code>true</code>，则只计算<code>x</code>，否则，只计算<code>y</code>。此外，<code>x</code>和<code>y</code>的类型必须相同，因为返回值不是<code>boolean</code>，而是<code>x</code>和<code>y</code>之一</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>程序基础</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>程序基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数组类型</title>
+    <url>/Java-%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80-%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/</url>
+    <content><![CDATA[<h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>如果我们有5个类型相同的变量：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n1 = <span class="number">68</span>;</span><br><span class="line">        <span class="keyword">int</span> n2 = <span class="number">79</span>;</span><br><span class="line">        <span class="keyword">int</span> n3 = <span class="number">91</span>;</span><br><span class="line">        <span class="keyword">int</span> n4 = <span class="number">85</span>;</span><br><span class="line">        <span class="keyword">int</span> n5 = <span class="number">62</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但其实没有必要定义5个<code>int</code>变量。可以使用数组来表示“一组”<code>int</code>类型:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 数组</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] ns = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];</span><br><span class="line">        ns[<span class="number">0</span>] = <span class="number">68</span>;</span><br><span class="line">        ns[<span class="number">1</span>] = <span class="number">79</span>;</span><br><span class="line">        ns[<span class="number">2</span>] = <span class="number">91</span>;</span><br><span class="line">        ns[<span class="number">3</span>] = <span class="number">85</span>;</span><br><span class="line">        ns[<span class="number">4</span>] = <span class="number">62</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义一个数组类型的变量，使用数组类型“类型[]”，例如，<code>int[]</code>。和单个基本类型变量不同，数组变量初始化必须使用<code>new int[5]</code>表示创建一个可容纳5个<code>int</code>元素的数组。</p>
+<p>Java的数组有几个特点：</p>
+<ul>
+<li>数组所有元素初始化为默认值，整型都是<code>0</code>，浮点型是<code>0.0</code>，布尔型是<code>false</code>；</li>
+<li>数组一旦创建后，大小就不可改变。</li>
+</ul>
+<p>要访问数组中的某一个元素，需要使用索引，数组索引从<code>0</code>开始</p>
+<p>可以修改数组中的某一个元素，使用赋值语句，可以用<code>数组变量.length</code>获取数组大小：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 数组</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] ns = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];</span><br><span class="line">        System.out.println(ns.length); <span class="comment">// 5</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>数组是引用类型，在使用索引访问数组元素时，如果索引超出范围，运行时将报错：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 数组</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] ns = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];</span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">5</span>;</span><br><span class="line">        System.out.println(ns[n]); <span class="comment">// 索引n不能超出范围</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也可以在定义数组时直接指定初始化的元素，这样就不必写出数组大小，而是由编译器自动推算数组大小：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 数组</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] ns = <span class="keyword">new</span> <span class="keyword">int</span>[] &#123; <span class="number">68</span>, <span class="number">79</span>, <span class="number">91</span>, <span class="number">85</span>, <span class="number">62</span> &#125;;</span><br><span class="line">        System.out.println(ns.length); <span class="comment">// 编译器自动推算数组大小为5</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还可以进一步简写为：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span>[] ns = &#123; <span class="number">68</span>, <span class="number">79</span>, <span class="number">91</span>, <span class="number">85</span>, <span class="number">62</span> &#125;;</span><br></pre></td></tr></table></figure>
+<p>数组是引用类型，并且数组大小不可变：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 数组</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] ns;</span><br><span class="line">        ns = <span class="keyword">new</span> <span class="keyword">int</span>[] &#123; <span class="number">68</span>, <span class="number">79</span>, <span class="number">91</span>, <span class="number">85</span>, <span class="number">62</span> &#125;;</span><br><span class="line">        System.out.println(ns.length); <span class="comment">// 5</span></span><br><span class="line">        ns = <span class="keyword">new</span> <span class="keyword">int</span>[] &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> &#125;;</span><br><span class="line">        System.out.println(ns.length); <span class="comment">// 3</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于数组<code>ns</code>来说，执行<code>ns = new int[] &#123; 68, 79, 91, 85, 62 &#125;;</code>时，它指向一个5个元素的数组：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">     ns</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">┌───┬───┬───┬───┬───┬───┬───┐</span><br><span class="line">│   │68 │79 │91 │85 │62 │   │</span><br><span class="line">└───┴───┴───┴───┴───┴───┴───┘</span><br></pre></td></tr></table></figure>
+<p>执行<code>ns = new int[] &#123; 1, 2, 3 &#125;;</code>时，它指向一个<em>新的</em>3个元素的数组：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">     ns ──────────────────────┐</span><br><span class="line">                              │</span><br><span class="line">                              ▼</span><br><span class="line">┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐</span><br><span class="line">│   │68 │79 │91 │85 │62 │   │ 1 │ 2 │ 3 │   │</span><br><span class="line">└───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘</span><br></pre></td></tr></table></figure>
+<p>但是，原有的5个元素的数组并没有改变，只是无法通过变量<code>ns</code>引用到它们而已</p>
+<h4 id="字符串数组"><a href="#字符串数组" class="headerlink" title="字符串数组"></a>字符串数组</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String[] names = &#123;</span><br><span class="line">    <span class="string">&quot;ABC&quot;</span>, <span class="string">&quot;XYZ&quot;</span>, <span class="string">&quot;zoo&quot;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>对于<code>String[]</code>类型的数组变量<code>names</code>，它实际上包含3个元素，但每个元素都指向某个字符串对象：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">          ┌─────────────────────────┐</span><br><span class="line">    names │   ┌─────────────────────┼───────────┐</span><br><span class="line">      │   │   │                     │           │</span><br><span class="line">      ▼   │   │                     ▼           ▼</span><br><span class="line">┌───┬───┬─┴─┬─┴─┬───┬───────┬───┬───────┬───┬───────┬───┐</span><br><span class="line">│   │░░░│░░░│░░░│   │ &quot;ABC&quot; │   │ &quot;XYZ&quot; │   │ &quot;zoo&quot; │   │</span><br><span class="line">└───┴─┬─┴───┴───┴───┴───────┴───┴───────┴───┴───────┴───┘</span><br><span class="line">      │                 ▲</span><br><span class="line">      └─────────────────┘</span><br></pre></td></tr></table></figure>
+<p>对<code>names[1]</code>进行赋值，例如<code>names[1] = &quot;cat&quot;;</code>，效果如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">          ┌─────────────────────────────────────────────────┐</span><br><span class="line">    names │   ┌─────────────────────────────────┐           │</span><br><span class="line">      │   │   │                                 │           │</span><br><span class="line">      ▼   │   │                                 ▼           ▼</span><br><span class="line">┌───┬───┬─┴─┬─┴─┬───┬───────┬───┬───────┬───┬───────┬───┬───────┬───┐</span><br><span class="line">│   │░░░│░░░│░░░│   │ &quot;ABC&quot; │   │ &quot;XYZ&quot; │   │ &quot;zoo&quot; │   │ &quot;cat&quot; │   │</span><br><span class="line">└───┴─┬─┴───┴───┴───┴───────┴───┴───────┴───┴───────┴───┴───────┴───┘</span><br><span class="line">      │                 ▲</span><br><span class="line">      └─────────────────┘</span><br></pre></td></tr></table></figure>
+<p>这里注意到原来<code>names[1]</code>指向的字符串<code>&quot;XYZ&quot;</code>并没有改变，仅仅是将<code>names[1]</code>的引用从指向<code>&quot;XYZ&quot;</code>改成了指向<code>&quot;cat&quot;</code>，其结果是字符串<code>&quot;XYZ&quot;</code>再也无法通过<code>names[1]</code>访问到了</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>程序基础</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>程序基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>整数运算</title>
-    <url>/2021/10/21/%E6%95%B4%E6%95%B0%E8%BF%90%E7%AE%97/</url>
+    <url>/Java-%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80-%E6%95%B4%E6%95%B0%E8%BF%90%E7%AE%97/</url>
     <content><![CDATA[<h4 id="四则运算"><a href="#四则运算" class="headerlink" title="四则运算"></a>四则运算</h4><p>Java的整数运损遵循四则运算规则，可以使用任何嵌套的小括号。四则运算规则和初等数学一致：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 四则运算</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = (<span class="number">100</span> + <span class="number">200</span>) * (<span class="number">99</span> - <span class="number">88</span>); <span class="comment">// 3300</span></span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">7</span> * (<span class="number">5</span> + (i - <span class="number">9</span>)); <span class="comment">// 23072</span></span><br><span class="line">        System.out.println(i);</span><br><span class="line">        System.out.println(n);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>整数的数值表示不但是精确的，而且整数运算永远是精确的，即使是除法也是精确的，因为两个整数相除只能得到结果的整数部分：</p>
@@ -404,7 +575,7 @@
   </entry>
   <entry>
     <title>浮点数运算</title>
-    <url>/2021/10/21/%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97/</url>
+    <url>/Java-%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80-%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97/</url>
     <content><![CDATA[<p>浮点数运算和整数运算相比，只能进行加减乘除这些数值计算，不能做位运算和移位运算</p>
 <h4 id="误差"><a href="#误差" class="headerlink" title="误差"></a>误差</h4><p>在计算机中，浮点数虽然表示的范围大，但是，浮点数有个非常重要的特点，就是浮点数常常无法精确表示</p>
 <p>因为浮点数常常无法精确表示，因此，浮点数运算会产生误差：</p>
@@ -437,142 +608,67 @@
       </tags>
   </entry>
   <entry>
-    <title>布尔运算</title>
-    <url>/2021/10/21/%E5%B8%83%E5%B0%94%E8%BF%90%E7%AE%97/</url>
-    <content><![CDATA[<p>对于布尔类型<code>boolean</code>，永远只有<code>true</code>和<code>false</code>两个值</p>
-<h4 id="关系运算"><a href="#关系运算" class="headerlink" title="关系运算"></a>关系运算</h4><ul>
-<li>比较运算符：<code>&gt;</code>，<code>&gt;=</code>，<code>&lt;</code>，<code>&lt;=</code>，<code>==</code>，<code>!=</code></li>
-<li>与运算 <code>&amp;&amp;</code></li>
-<li>或运算 <code>||</code></li>
-<li>非运算 <code>!</code></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">boolean</span> isGreater = <span class="number">5</span> &gt; <span class="number">3</span>; <span class="comment">// true</span></span><br><span class="line"><span class="keyword">int</span> age = <span class="number">12</span>;</span><br><span class="line"><span class="keyword">boolean</span> isZero = age == <span class="number">0</span>; <span class="comment">// false</span></span><br><span class="line"><span class="keyword">boolean</span> isNonZero = !isZero; <span class="comment">// true</span></span><br><span class="line"><span class="keyword">boolean</span> isAdult = age &gt;= <span class="number">18</span>; <span class="comment">// false</span></span><br><span class="line"><span class="keyword">boolean</span> isTeenager = age &gt;<span class="number">6</span> &amp;&amp; age &lt;<span class="number">18</span>; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<p>关系运算符的优先级从高到低依次是：</p>
+    <title>Java程序基本结构</title>
+    <url>/Java-%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80-Java%E7%A8%8B%E5%BA%8F%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<h4 id="类"><a href="#类" class="headerlink" title="类"></a>类</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 可以用来自动创建文档的注释</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 向屏幕输出文本:</span></span><br><span class="line">        System.out.println(<span class="string">&quot;Hello, world!&quot;</span>);</span><br><span class="line">        <span class="comment">/* 多行注释开始</span></span><br><span class="line"><span class="comment">        注释内容</span></span><br><span class="line"><span class="comment">        注释结束 */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="comment">// class定义结束</span></span><br></pre></td></tr></table></figure>
+<p>因为Java是面向对象的语言，一个程序的基本单位就是class，class是关键字，这里定义的class名字就是Hello</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123; <span class="comment">// 类名是Hello</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125; <span class="comment">// class定义结束</span></span><br></pre></td></tr></table></figure>
+<p>类名要求：</p>
 <ul>
-<li><code>!</code></li>
-<li><code>&gt;</code>，<code>&gt;=</code>，<code>&lt;</code>，<code>&lt;=</code></li>
-<li><code>==</code>，<code>!=</code></li>
-<li><code>&amp;&amp;</code></li>
-<li><code>||</code></li>
+<li><p>类名必须以英文字母开头，后接字母，数字和下划线的组合</p>
+</li>
+<li><p>习惯以大写字母开头</p>
+</li>
 </ul>
-<h4 id="短路运算"><a href="#短路运算" class="headerlink" title="短路运算"></a>短路运算</h4><p>如果一个布尔运算的表达式能提前确定结果，则后续的计算不再执行，直接返回结果。</p>
-<p>因为<code>false &amp;&amp; x</code>的结果总是<code>false</code>，无论<code>x</code>是<code>true</code>还是<code>false</code>，因此，与运算在确定第一个值为<code>false</code>后，不再继续计算，而是直接返回<code>false</code></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 短路运算</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> b = <span class="number">5</span> &lt; <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">boolean</span> result = b &amp;&amp; (<span class="number">5</span> / <span class="number">0</span> &gt; <span class="number">0</span>);</span><br><span class="line">        System.out.println(result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果没有短路运算，<code>&amp;&amp;</code>后面的表达式会由于除数为<code>0</code>而报错，但实际上该语句并未报错，原因在于与运算是短路运算符，提前计算出了结果<code>false</code></p>
-<p>类似的，对于<code>||</code>运算，只要能确定第一个值为<code>true</code>，后续计算也不再进行，而是直接返回<code>true</code>：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">boolean</span> result = <span class="keyword">true</span> || (<span class="number">5</span> / <span class="number">0</span> &gt; <span class="number">0</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<h4 id="三元运算符"><a href="#三元运算符" class="headerlink" title="三元运算符"></a>三元运算符</h4><p>Java还提供了一个三元运算符<code>b ? x : y</code>，它根据第一个布尔表达式的结果，分别返回后续两个表达式之一的计算结果：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 三元运算</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = -<span class="number">100</span>;</span><br><span class="line">        <span class="keyword">int</span> x = n &gt;= <span class="number">0</span> ? n : -n;</span><br><span class="line">        System.out.println(x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上述语句的意思是，判断<code>n &gt;= 0</code>是否成立，如果为<code>true</code>，则返回<code>n</code>，否则返回<code>-n</code>。这实际上是一个求绝对值的表达式</p>
-<p>注意到三元运算<code>b ? x : y</code>会首先计算<code>b</code>，如果<code>b</code>为<code>true</code>，则只计算<code>x</code>，否则，只计算<code>y</code>。此外，<code>x</code>和<code>y</code>的类型必须相同，因为返回值不是<code>boolean</code>，而是<code>x</code>和<code>y</code>之一</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-        <category>程序基础</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>程序基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>字符和字符串</title>
-    <url>/2021/10/21/%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
-    <content><![CDATA[<p>在Java中，字符和字符串是两个不同的类型</p>
-<h4 id="字符类型"><a href="#字符类型" class="headerlink" title="字符类型"></a>字符类型</h4><p>字符类型<code>char</code>是基本数据类型，它是<code>character</code>的缩写。一个<code>char</code>保存一个Unicode字符：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> c1 = <span class="string">&#x27;A&#x27;</span>;</span><br><span class="line"><span class="keyword">char</span> c2 = <span class="string">&#x27;中&#x27;</span>;</span><br></pre></td></tr></table></figure>
-<p>因为Java在内存中总是使用Unicode表示字符，所以，一个英文字符和一个中文字符都用一个<code>char</code>类型表示，它们都占用两个字节。要显示一个字符的Unicode编码，只需将<code>char</code>类型直接赋值给<code>int</code>类型即可：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> n1 = <span class="string">&#x27;A&#x27;</span>; <span class="comment">// 字母“A”的Unicodde编码是65</span></span><br><span class="line"><span class="keyword">int</span> n2 = <span class="string">&#x27;中&#x27;</span>; <span class="comment">// 汉字“中”的Unicode编码是20013</span></span><br></pre></td></tr></table></figure>
-<p>还可以直接用转义字符<code>\u</code>+Unicode编码来表示一个字符：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 注意是十六进制:</span></span><br><span class="line"><span class="keyword">char</span> c3 = <span class="string">&#x27;\u0041&#x27;</span>; <span class="comment">// &#x27;A&#x27;，因为十六进制0041 = 十进制65</span></span><br><span class="line"><span class="keyword">char</span> c4 = <span class="string">&#x27;\u4e2d&#x27;</span>; <span class="comment">// &#x27;中&#x27;，因为十六进制4e2d = 十进制20013</span></span><br></pre></td></tr></table></figure>
-<h4 id="字符串类型"><a href="#字符串类型" class="headerlink" title="字符串类型"></a>字符串类型</h4><p>和<code>char</code>类型不同，字符串类型<code>String</code>是引用类型，我们用双引号<code>&quot;...&quot;</code>表示字符串。一个字符串可以存储0个到任意个字符：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;&quot;</span>; <span class="comment">// 空字符串，包含0个字符</span></span><br><span class="line">String s1 = <span class="string">&quot;A&quot;</span>; <span class="comment">// 包含一个字符</span></span><br><span class="line">String s2 = <span class="string">&quot;ABC&quot;</span>; <span class="comment">// 包含3个字符</span></span><br><span class="line">String s3 = <span class="string">&quot;中文 ABC&quot;</span>; <span class="comment">// 包含6个字符，其中有一个空格</span></span><br></pre></td></tr></table></figure>
-<p><code>&quot;abc&quot;xyz&quot;</code>，编译器就无法判断中间的引号究竟是字符串的一部分还是表示字符串结束。这个时候，我们需要借助转义字符<code>\</code>：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;abc\&quot;xyz&quot;</span>; <span class="comment">// 包含7个字符: a, b, c, &quot;, x, y, z</span></span><br></pre></td></tr></table></figure>
-<p>因为<code>\</code>是转义字符，所以，两个<code>\\</code>表示一个<code>\</code>字符：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;abc\\xyz&quot;</span>; <span class="comment">// 包含7个字符: a, b, c, \, x, y, z</span></span><br></pre></td></tr></table></figure>
-<p>常见的转义字符包括：</p>
+<p>不好的类名:</p>
 <ul>
-<li><code>\&quot;</code> 表示字符<code>&quot;</code></li>
-<li><code>\&#39;</code> 表示字符<code>&#39;</code></li>
-<li><code>\\</code> 表示字符<code>\</code></li>
-<li><code>\n</code> 表示换行符</li>
-<li><code>\r</code> 表示回车符</li>
-<li><code>\t</code> 表示Tab</li>
-<li><code>\u####</code> 表示一个Unicode编码的字符</li>
+<li><p>hello</p>
+</li>
+<li><p>Good123</p>
+</li>
+<li><p>Note_Book</p>
+</li>
+<li><p>_World</p>
+</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;ABC\n\u4e2d\u6587&quot;</span>; <span class="comment">// 包含6个字符: A, B, C, 换行符, 中, 文</span></span><br></pre></td></tr></table></figure>
-<h4 id="字符串连接"><a href="#字符串连接" class="headerlink" title="字符串连接"></a>字符串连接</h4><p>Java的编译器对字符串做了特殊照顾，可以使用<code>+</code>连接任意字符串和其他数据类型，这样极大地方便了字符串的处理：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 字符串连接</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s1 = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">        String s2 = <span class="string">&quot;world&quot;</span>;</span><br><span class="line">        String s = s1 + <span class="string">&quot; &quot;</span> + s2 + <span class="string">&quot;!&quot;</span>;</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果用<code>+</code>连接字符串和其他数据类型，会将其他数据类型先自动转型为字符串，再连接：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 字符串连接</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> age = <span class="number">25</span>;</span><br><span class="line">        String s = <span class="string">&quot;age is &quot;</span> + age;</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="多行字符串"><a href="#多行字符串" class="headerlink" title="多行字符串"></a>多行字符串</h4><p>如果我们要表示多行字符串，使用+号连接会非常不方便：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">String s &#x3D; &quot;first line \n&quot;</span><br><span class="line">         + &quot;second line \n&quot;</span><br><span class="line">         + &quot;end&quot;;</span><br></pre></td></tr></table></figure>
-<p>从Java 13开始，字符串可以用<code>&quot;&quot;&quot;...&quot;&quot;&quot;</code>表示多行字符串（Text Blocks）了：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 多行字符串</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s = <span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">                   SELECT * FROM</span></span><br><span class="line"><span class="string">                     users</span></span><br><span class="line"><span class="string">                   WHERE id &gt; 100</span></span><br><span class="line"><span class="string">                   ORDER BY name DESC</span></span><br><span class="line"><span class="string">                   &quot;</span><span class="string">&quot;&quot;</span>;</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上述多行字符串实际上是5行，在最后一个<code>DESC</code>后面还有一个<code>\n</code>。如果我们不想在字符串末尾加一个<code>\n</code>，就需要这么写：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;&quot;</span><span class="string">&quot; </span></span><br><span class="line"><span class="string">           SELECT * FROM</span></span><br><span class="line"><span class="string">             users</span></span><br><span class="line"><span class="string">           WHERE id &gt; 100</span></span><br><span class="line"><span class="string">           ORDER BY name DESC&quot;</span><span class="string">&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
-<p>还需要注意到，多行字符串前面共同的空格会被去掉，即：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">...........SELECT * FROM</span></span><br><span class="line"><span class="string">...........  users</span></span><br><span class="line"><span class="string">...........WHERE id &gt; 100</span></span><br><span class="line"><span class="string">...........ORDER BY name DESC</span></span><br><span class="line"><span class="string">...........&quot;</span><span class="string">&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
-<p>用<code>.</code>标注的空格都会被去掉。</p>
-<p>如果多行字符串的排版不规则，那么，去掉的空格就会变成这样：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">.........  SELECT * FROM</span></span><br><span class="line"><span class="string">.........    users</span></span><br><span class="line"><span class="string">.........WHERE id &gt; 100</span></span><br><span class="line"><span class="string">.........  ORDER BY name DESC</span></span><br><span class="line"><span class="string">.........  &quot;</span><span class="string">&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
-<p>即总是以最短的行首空格为基准。</p>
-<h4 id="不可变特性"><a href="#不可变特性" class="headerlink" title="不可变特性"></a>不可变特性</h4><p>Java的字符串除了是一个引用类型外，还有个重要特点，就是字符串不可变:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 字符串不可变</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">        System.out.println(s); <span class="comment">// 显示 hello</span></span><br><span class="line">        s = <span class="string">&quot;world&quot;</span>;</span><br><span class="line">        System.out.println(s); <span class="comment">// 显示 world</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>执行<code>String s = &quot;hello&quot;;</code>时，JVM虚拟机先创建字符串<code>&quot;hello&quot;</code>，然后，把字符串变量<code>s</code>指向它：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">      s</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">┌───┬───────────┬───┐</span><br><span class="line">│   │  &quot;hello&quot;  │   │</span><br><span class="line">└───┴───────────┴───┘</span><br></pre></td></tr></table></figure>
-<p>紧接着，执行<code>s = &quot;world&quot;;</code>时，JVM虚拟机先创建字符串<code>&quot;world&quot;</code>，然后，把字符串变量<code>s</code>指向它：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">      s ──────────────┐</span><br><span class="line">                      │</span><br><span class="line">                      ▼</span><br><span class="line">┌───┬───────────┬───┬───────────┬───┐</span><br><span class="line">│   │  &quot;hello&quot;  │   │  &quot;world&quot;  │   │</span><br><span class="line">└───┴───────────┴───┴───────────┴───┘</span><br></pre></td></tr></table></figure>
-<p>原来的字符串<code>&quot;hello&quot;</code>还在，只是我们无法通过变量<code>s</code>访问它而已。因此，字符串的不可变是指字符串内容不可变。</p>
-<h4 id="空值null"><a href="#空值null" class="headerlink" title="空值null"></a>空值null</h4><p>引用类型的变量可以指向一个空值<code>null</code>，它表示不存在，即该变量不指向任何对象。例如：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s1 = <span class="keyword">null</span>; <span class="comment">// s1是null</span></span><br><span class="line">String s2; <span class="comment">// 没有赋初值值，s2也是null</span></span><br><span class="line">String s3 = s1; <span class="comment">// s3也是null</span></span><br><span class="line">String s4 = <span class="string">&quot;&quot;</span>; <span class="comment">// s4指向空字符串，不是null</span></span><br></pre></td></tr></table></figure>
-<p>注意要区分空值<code>null</code>和空字符串<code>&quot;&quot;</code>，空字符串是一个有效的字符串对象，它不等于<code>null</code></p>
-]]></content>
-      <categories>
-        <category>Java</category>
-        <category>程序基础</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>程序基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数组类型</title>
-    <url>/2021/10/22/%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/</url>
-    <content><![CDATA[<p>如果我们有一组类型相同的变量：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n1 = <span class="number">68</span>;</span><br><span class="line">        <span class="keyword">int</span> n2 = <span class="number">79</span>;</span><br><span class="line">        <span class="keyword">int</span> n3 = <span class="number">91</span>;</span><br><span class="line">        <span class="keyword">int</span> n4 = <span class="number">85</span>;</span><br><span class="line">        <span class="keyword">int</span> n5 = <span class="number">62</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>但其实没有必要定义5个<code>int</code>变量。可以使用数组来表示“一组”<code>int</code>类型:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 数组</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] ns = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];</span><br><span class="line">        ns[<span class="number">0</span>] = <span class="number">68</span>;</span><br><span class="line">        ns[<span class="number">1</span>] = <span class="number">79</span>;</span><br><span class="line">        ns[<span class="number">2</span>] = <span class="number">91</span>;</span><br><span class="line">        ns[<span class="number">3</span>] = <span class="number">85</span>;</span><br><span class="line">        ns[<span class="number">4</span>] = <span class="number">62</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>定义一个数组类型的变量，使用数组类型“类型[]”，例如，<code>int[]</code>。和单个基本类型变量不同，数组变量初始化必须使用<code>new int[5]</code>表示创建一个可容纳5个<code>int</code>元素的数组。</p>
-<p>Java的数组有几个特点：</p>
+<p>注意到<code>public</code>是访问修饰符,表示该<code>class</code>是公开的</p>
+<p>不写<code>public</code>,也能正确编译,但是这个类将无法从命令行执行</p>
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><p>在<code>class</code>内部,可以定义若干方法<code>(method)</code>:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123; <span class="comment">// 方法名是main</span></span><br><span class="line">        <span class="comment">// 方法代码...</span></span><br><span class="line">    &#125; <span class="comment">// 方法定义结束</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方法定义了一组执行语句,方法内部的代码将会被依次顺序执行</p>
+<p>这里方法名是<code>main</code>,返回值是<code>void</code>,表示没有任何返回值</p>
+<p>我们注意到<code>public</code>除了可以修饰<code>class</code>外,也可以修饰方法.而关键字<code>static</code>是另一个修饰符,它表示静态方法.</p>
+<p>Java入口程序规定的方法必须是静态方法,方法名必须为<code>main</code>,括号内的参数必须是String数组.</p>
+<p>方法名爷爷命名规则,命名和<code>class</code>一样,但是首字母小写:</p>
+<p>好的方法名:</p>
 <ul>
-<li>数组所有元素初始化为默认值，整型都是<code>0</code>，浮点型是<code>0.0</code>，布尔型是<code>false</code>；</li>
-<li>数组一旦创建后，大小就不可改变。</li>
+<li><p>main</p>
+</li>
+<li><p>goodMorning</p>
+</li>
+<li><p>playVR</p>
+</li>
 </ul>
-<p>要访问数组中的某一个元素，需要使用索引，数组索引从<code>0</code>开始</p>
-<p>可以修改数组中的某一个元素，使用赋值语句，可以用<code>数组变量.length</code>获取数组大小：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 数组</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] ns = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];</span><br><span class="line">        System.out.println(ns.length); <span class="comment">// 5</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>数组是引用类型，在使用索引访问数组元素时，如果索引超出范围，运行时将报错：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 数组</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] ns = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];</span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">5</span>;</span><br><span class="line">        System.out.println(ns[n]); <span class="comment">// 索引n不能超出范围</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>也可以在定义数组时直接指定初始化的元素，这样就不必写出数组大小，而是由编译器自动推算数组大小：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 数组</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] ns = <span class="keyword">new</span> <span class="keyword">int</span>[] &#123; <span class="number">68</span>, <span class="number">79</span>, <span class="number">91</span>, <span class="number">85</span>, <span class="number">62</span> &#125;;</span><br><span class="line">        System.out.println(ns.length); <span class="comment">// 编译器自动推算数组大小为5</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>还可以进一步简写为：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span>[] ns = &#123; <span class="number">68</span>, <span class="number">79</span>, <span class="number">91</span>, <span class="number">85</span>, <span class="number">62</span> &#125;;</span><br></pre></td></tr></table></figure>
-<p>数组是引用类型，并且数组大小不可变：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 数组</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] ns;</span><br><span class="line">        ns = <span class="keyword">new</span> <span class="keyword">int</span>[] &#123; <span class="number">68</span>, <span class="number">79</span>, <span class="number">91</span>, <span class="number">85</span>, <span class="number">62</span> &#125;;</span><br><span class="line">        System.out.println(ns.length); <span class="comment">// 5</span></span><br><span class="line">        ns = <span class="keyword">new</span> <span class="keyword">int</span>[] &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> &#125;;</span><br><span class="line">        System.out.println(ns.length); <span class="comment">// 3</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>对于数组<code>ns</code>来说，执行<code>ns = new int[] &#123; 68, 79, 91, 85, 62 &#125;;</code>时，它指向一个5个元素的数组：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">     ns</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">┌───┬───┬───┬───┬───┬───┬───┐</span><br><span class="line">│   │68 │79 │91 │85 │62 │   │</span><br><span class="line">└───┴───┴───┴───┴───┴───┴───┘</span><br></pre></td></tr></table></figure>
-<p>执行<code>ns = new int[] &#123; 1, 2, 3 &#125;;</code>时，它指向一个<em>新的</em>3个元素的数组：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">     ns ──────────────────────┐</span><br><span class="line">                              │</span><br><span class="line">                              ▼</span><br><span class="line">┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐</span><br><span class="line">│   │68 │79 │91 │85 │62 │   │ 1 │ 2 │ 3 │   │</span><br><span class="line">└───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘</span><br></pre></td></tr></table></figure>
-<p>但是，原有的5个元素的数组并没有改变，只是无法通过变量<code>ns</code>引用到它们而已</p>
-<h4 id="字符串数组"><a href="#字符串数组" class="headerlink" title="字符串数组"></a>字符串数组</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String[] names = &#123;</span><br><span class="line">    <span class="string">&quot;ABC&quot;</span>, <span class="string">&quot;XYZ&quot;</span>, <span class="string">&quot;zoo&quot;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>对于<code>String[]</code>类型的数组变量<code>names</code>，它实际上包含3个元素，但每个元素都指向某个字符串对象：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">          ┌─────────────────────────┐</span><br><span class="line">    names │   ┌─────────────────────┼───────────┐</span><br><span class="line">      │   │   │                     │           │</span><br><span class="line">      ▼   │   │                     ▼           ▼</span><br><span class="line">┌───┬───┬─┴─┬─┴─┬───┬───────┬───┬───────┬───┬───────┬───┐</span><br><span class="line">│   │░░░│░░░│░░░│   │ &quot;ABC&quot; │   │ &quot;XYZ&quot; │   │ &quot;zoo&quot; │   │</span><br><span class="line">└───┴─┬─┴───┴───┴───┴───────┴───┴───────┴───┴───────┴───┘</span><br><span class="line">      │                 ▲</span><br><span class="line">      └─────────────────┘</span><br></pre></td></tr></table></figure>
-<p>对<code>names[1]</code>进行赋值，例如<code>names[1] = &quot;cat&quot;;</code>，效果如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">          ┌─────────────────────────────────────────────────┐</span><br><span class="line">    names │   ┌─────────────────────────────────┐           │</span><br><span class="line">      │   │   │                                 │           │</span><br><span class="line">      ▼   │   │                                 ▼           ▼</span><br><span class="line">┌───┬───┬─┴─┬─┴─┬───┬───────┬───┬───────┬───┬───────┬───┬───────┬───┐</span><br><span class="line">│   │░░░│░░░│░░░│   │ &quot;ABC&quot; │   │ &quot;XYZ&quot; │   │ &quot;zoo&quot; │   │ &quot;cat&quot; │   │</span><br><span class="line">└───┴─┬─┴───┴───┴───┴───────┴───┴───────┴───┴───────┴───┴───────┴───┘</span><br><span class="line">      │                 ▲</span><br><span class="line">      └─────────────────┘</span><br></pre></td></tr></table></figure>
-<p>这里注意到原来<code>names[1]</code>指向的字符串<code>&quot;XYZ&quot;</code>并没有改变，仅仅是将<code>names[1]</code>的引用从指向<code>&quot;XYZ&quot;</code>改成了指向<code>&quot;cat&quot;</code>，其结果是字符串<code>&quot;XYZ&quot;</code>再也无法通过<code>names[1]</code>访问到了</p>
+<p>不好的方法名：</p>
+<ul>
+<li><p>Main</p>
+</li>
+<li><p>good123</p>
+</li>
+<li><p>good_morning</p>
+</li>
+<li><p>_playVR</p>
+</li>
+</ul>
+<p>在方法内部，语句才是真正的执行代码。Java的每一行语句必须以分号结束：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello, world!&quot;</span>); <span class="comment">// 语句</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p>注释是一种给人阅读的文本，不是程序的一部分，所以编译器会自动忽略注释</p>
+<p>Java有3种注释，第一种是单行注释，以双斜线开头，直到这一行的结尾结束：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//这里是注释。。。</span></span><br></pre></td></tr></table></figure>
+<p>而多行注释以<code>/*</code>星号开头，以<code>*/</code>结束，可以有多行：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">这里是注释</span></span><br><span class="line"><span class="comment">这里也是注释</span></span><br><span class="line"><span class="comment">这里还是注释</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>还有一种写在类和方法的定义处，用于自动创建文档，以<code>/**</code>开头，以<code>*/</code>结束，如果有多行，每行通常以星号开头：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 可以用来自动创建文档的注释</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@auther</span> liaoxuefeng</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello, world!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Java</category>
