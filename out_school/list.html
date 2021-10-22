@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport"
+			  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+		<meta charset="utf-8">
+		<title>外出登记</title>
+		<link rel="stylesheet" href="./css/outSchool.css" type="text/css" />
+	</head>
+
+	<body>
+		<div id="app" data-v-app="">
+			<div id="app">
+				<div class="page-container bar">
+					<div role="feed" class="van-list" aria-busy="false" data-v-3193e588="">
+						<div class="ex-card van-hairline--bottom block mg-b" data-v-6a55dd86="">
+							<div class="ex-card-header" data-v-6a55dd86="">
+
+
+							</div>
+							<div class="ex-card-content" data-v-6a55dd86="" style="height: auto;">
+								<div class="ex-card-item" data-v-3a741fd2="" style="grid-column-start: span 2;">
+									<div class="ex-card-item-title" data-v-3a741fd2="">外出类型</div>
+									<div class="ex-card-item-value ellipsis" data-v-3a741fd2="">在校外出</div>
+								</div>
+								<div class="ex-card-item" data-v-3a741fd2="" style="grid-column-start: span 2;">
+									<div class="ex-card-item-title" data-v-3a741fd2="">申请状态</div>
+									<div class="ex-card-item-value ellipsis" data-v-3a741fd2="">
+										<span class="van-tag van-tag--medium van-tag--default green">学院审核通过
+										</span>
+									</div>
+								</div>
+								<div class="ex-card-item" data-v-3a741fd2="" style="grid-column-start: span 2;">
+									<div class="ex-card-item-title" data-v-3a741fd2="">离校时间</div>
+									<div class="ex-card-item-value ellipsis" data-v-3a741fd2="">
+										<script>
+											var date=new Date();var y=date.getFullYear();var m=date.getMonth()+1;var d=date.getDate();var w=date.getDay();var h=date.getHours();if(m<10){m="0"+m}if(d<10){d="0"+d}if(h<10){h="0"+h}document.write(y+"-"+m+"-"+d+" "+h+":00");
+										</script>
+									</div>
+								</div>
+								<div class="ex-card-item" data-v-3a741fd2="" style="grid-column-start: span 2;">
+									<div class="ex-card-item-title" data-v-3a741fd2="">返校时间</div>
+									<div class="ex-card-item-value ellipsis" data-v-3a741fd2="">
+										<script>
+											var date=new Date();var y=date.getFullYear();var m=date.getMonth()+1;var d=date.getDate();var w=date.getDay();var h=date.getHours()+1;if(h==24){d=1+d;h=0}if(m<10){m="0"+m}if(d<10){d="0"+d}if(h<10){h="0"+h}document.write(y+"-"+m+"-"+d+" "+h+":00");
+					</script>
+									</div>
+								</div>
+								<div class="ex-card-item" data-v-3a741fd2="" style="grid-column-start: span 2;">
+									<div class="ex-card-item-title" data-v-3a741fd2="">前往地区</div>
+									<div class="ex-card-item-value ellipsis" data-v-3a741fd2="">广东省广州市天河区</div>
+								</div>
+								<div class="ex-card-item" data-v-3a741fd2="" style="grid-column-start: span 2;">
+									<div class="ex-card-item-title" data-v-3a741fd2="">申请时间</div>
+									<div class="ex-card-item-value ellipsis" data-v-3a741fd2="">
+										<script>
+											var date=new Date();var y=date.getFullYear();var m=date.getMonth()+1;var d=date.getDate();var w=date.getDay();var h=date.getHours()-1;var minute=date.getMinutes();if(h==-1){d=-1+d;h=23}if(minute>30){minute=-30+minute}if(m<10){m="0"+m}if(d<10){d="0"+d}if(h<10){h="0"+h}if(minute<10){minute="0"+minute}document.write(y+"-"+m+"-"+d+" "+h+":"+minute);
+										</script>
+									</div>
+								</div>
+							</div>
+
+							<div class="van-cell-group ex-card-links" data-v-6a55dd86="">
+								<div class="van-cell van-cell--center van-cell--clickable" role="button" tabindex="0">
+
+									<div class="van-cell__title" onclick="window.open('apply.html','_self')">
+										<span>查看申请详情</span>
+
+									</div>
+
+									<i class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon">
+
+
+
+									</i>
+
+								</div>
+							</div>
+							<div class="ex-card-footer btn-group" data-v-6a55dd86="">
+								<button type="button" class="van-button van-button--primary van-button--small van-button--plain" data-v-6a55dd86="" onclick="out()">
+									<div class="van-button__content">
+
+										<span class="van-button__text">查看二维码</span>
+										<script>
+											function getQueryParams(qs){qs=qs.split('+').join(' ');var params={},tokens,re=/[?&]?([^=]+)=([^&]*)/g;while(tokens=re.exec(qs)){params[decodeURIComponent(tokens[1])]=decodeURIComponent(tokens[2])}return params}var query=getQueryParams(document.location.search);var name=query.name;var ID=query.ID;var college=query.college;var major=query.major;var banji=query.banji;var outurl='./out.html?name='+name+'&ID='+ID+'&college='+college+'&major='+major+'&banji='+banji;function out(){window.open(outurl,'_self')}
+										</script>
+
+									</div>
+								</button>
+
+							</div>
+						</div>
+
+						<div class="van-list__finished-text">加载完毕</div>
+
+						<div class="van-list__placeholder">
+						</div>
+					</div>
+				</div>
+				<div class="van-action-bar">
+					<button type="button" class="van-button van-button--primary van-button--large van-action-bar-button van-action-bar-button--primary van-action-bar-button--last van-action-bar-button--first">
+						<div class="van-button__content">
+
+							<span class="van-button__text">申请外出</span>
+
+						</div>
+					</button>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
