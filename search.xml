@@ -969,4 +969,29 @@
         <tag>面向对象基础</tag>
       </tags>
   </entry>
+  <entry>
+    <title>方法重载</title>
+    <url>/Java/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80/%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/</url>
+    <content><![CDATA[<p>在一个类中，我们可以定义多个方法。如果有一系列方法，它们的功能都是类似的，只有参数有所不同，那么，可以把这一组方法名做成<em>同名</em>方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello, world!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello, &quot;</span> + name + <span class="string">&quot;!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (age &lt; <span class="number">18</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Hi, &quot;</span> + name + <span class="string">&quot;!&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Hello, &quot;</span> + name + <span class="string">&quot;!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方法名相同，但各自的参数不同，称为方法重载（<code>Overload</code>）。</p>
+<p>注意：方法重载的返回值类型通常都是相同的。</p>
+<p>方法重载的目的是，功能类似的方法使用同一名字，更容易记住，因此，调用起来更简单。</p>
+<p>举个例子，<code>String</code>类提供了多个重载方法<code>indexOf()</code>，可以查找子串：</p>
+<ul>
+<li><code>int indexOf(int ch)</code>：根据字符的Unicode码查找；</li>
+<li><code>int indexOf(String str)</code>：根据字符串查找；</li>
+<li><code>int indexOf(int ch, int fromIndex)</code>：根据字符查找，但指定起始位置；</li>
+<li><code>int indexOf(String str, int fromIndex)</code>根据字符串查找，但指定起始位置。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>面向对象基础</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>面向对象基础</tag>
+      </tags>
+  </entry>
 </search>
