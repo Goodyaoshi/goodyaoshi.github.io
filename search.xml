@@ -1416,4 +1416,73 @@
         <tag>面向对象基础</tag>
       </tags>
   </entry>
+  <entry>
+    <title>字符串和编码</title>
+    <url>/Java/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E7%BC%96%E7%A0%81/</url>
+    <content><![CDATA[<h4 id="String"><a href="#String" class="headerlink" title="String"></a>String</h4><p>在Java中<code>String</code>是一个引用类型，它本身也是一个<code>class</code>。但是Java编译器对<code>String</code>有特殊处理，即可以直接用<code>&quot;...&quot;</code>来表示一个字符串：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">String s1 &#x3D; &quot;Hello!&quot;;</span><br></pre></td></tr></table></figure>
+<p>实际上字符串在<code>String</code>内部是通过一个<code>char[]</code>数组表示的，因此按下面的写法也是可以的：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">String s2 &#x3D; new String(new char[] &#123;&#39;H&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;, &#39;!&#39;&#125;);</span><br></pre></td></tr></table></figure>
+<p>Java字符串的一个重要特点就是字符串<em>不可变</em>。这种不可变性是通过内部的<code>private final char[]</code>字段，以及没有任何修改<code>char[]</code>的方法实现的。</p>
+<h4 id="字符串比较"><a href="#字符串比较" class="headerlink" title="字符串比较"></a>字符串比较</h4><p>当我们想要比较两个字符串是否相同时，我们实际上是想比较字符串的内容是否相同，所以必须使用<code>equals()</code>方法而不能用<code>==</code>：</p>
+<p>Java编译器在编译期会自动把所有相同的字符串当作一个对象放入常量池，所以<code>==</code>比较返回<code>true</code>纯属巧合，换一种写法，<code>==</code>比较就会失败：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// String</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s1 = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">        String s2 = <span class="string">&quot;HELLO&quot;</span>.toLowerCase();</span><br><span class="line">        System.out.println(s1 == s2);</span><br><span class="line">        System.out.println(s1.equals(s2));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要忽略大小写比较，使用<code>equalsIgnoreCase()</code>方法，<code>String</code>类还提供了多种方法来搜索子串、提取子串：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 是否包含子串:</span></span><br><span class="line"><span class="string">&quot;Hello&quot;</span>.contains(<span class="string">&quot;ll&quot;</span>); <span class="comment">// true</span></span><br><span class="line"><span class="comment">// 搜索子串</span></span><br><span class="line"><span class="string">&quot;Hello&quot;</span>.indexOf(<span class="string">&quot;l&quot;</span>); <span class="comment">// 2</span></span><br><span class="line"><span class="string">&quot;Hello&quot;</span>.lastIndexOf(<span class="string">&quot;l&quot;</span>); <span class="comment">// 3</span></span><br><span class="line"><span class="string">&quot;Hello&quot;</span>.startsWith(<span class="string">&quot;He&quot;</span>); <span class="comment">// true</span></span><br><span class="line"><span class="string">&quot;Hello&quot;</span>.endsWith(<span class="string">&quot;lo&quot;</span>); <span class="comment">// true</span></span><br><span class="line"><span class="comment">// 提取子串</span></span><br><span class="line"><span class="string">&quot;Hello&quot;</span>.substring(<span class="number">2</span>); <span class="comment">// &quot;llo&quot;</span></span><br><span class="line"><span class="string">&quot;Hello&quot;</span>.substring(<span class="number">2</span>, <span class="number">4</span>); <span class="string">&quot;ll&quot;</span></span><br></pre></td></tr></table></figure>
+<h4 id="去除首尾空白字符"><a href="#去除首尾空白字符" class="headerlink" title="去除首尾空白字符"></a>去除首尾空白字符</h4><p>使用<code>trim()</code>方法可以移除字符串首尾空白字符。空白字符包括空格，<code>\t</code>，<code>\r</code>，<code>\n</code>，<code>trim()</code>并没有改变字符串的内容，而是返回了一个新字符串：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;  \tHello\r\n &quot;</span>.trim(); <span class="comment">// &quot;Hello&quot;</span></span><br></pre></td></tr></table></figure>
+<p><code>strip()</code>方法也可以移除字符串首尾空白字符。它和<code>trim()</code>不同的是，类似中文的空格字符<code>\u3000</code>也会被移除：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;\u3000Hello\u3000&quot;</span>.strip(); <span class="comment">// &quot;Hello&quot;</span></span><br><span class="line"><span class="string">&quot; Hello &quot;</span>.stripLeading(); <span class="comment">// &quot;Hello &quot;</span></span><br><span class="line"><span class="string">&quot; Hello &quot;</span>.stripTrailing(); <span class="comment">// &quot; Hello&quot;</span></span><br></pre></td></tr></table></figure>
+<p>此外，<code>String</code>还提供了<code>isEmpty()</code>和<code>isBlank()</code>来判断字符串是否为空和空白字符串：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&quot;</span>.isEmpty(); <span class="comment">// true，因为字符串长度为0</span></span><br><span class="line"><span class="string">&quot;  &quot;</span>.isEmpty(); <span class="comment">// false，因为字符串长度不为0</span></span><br><span class="line"><span class="string">&quot;  \n&quot;</span>.isBlank(); <span class="comment">// true，因为只包含空白字符</span></span><br><span class="line"><span class="string">&quot; Hello &quot;</span>.isBlank(); <span class="comment">// false，因为包含非空白字符</span></span><br></pre></td></tr></table></figure>
+<h4 id="替换子串"><a href="#替换子串" class="headerlink" title="替换子串"></a>替换子串</h4><p>在字符串中替换子串，有两种方法。一种是根据字符或字符串替换：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">s.replace(<span class="string">&#x27;l&#x27;</span>, <span class="string">&#x27;w&#x27;</span>); <span class="comment">// &quot;hewwo&quot;，所有字符&#x27;l&#x27;被替换为&#x27;w&#x27;</span></span><br><span class="line">s.replace(<span class="string">&quot;ll&quot;</span>, <span class="string">&quot;~~&quot;</span>); <span class="comment">// &quot;he~~o&quot;，所有子串&quot;ll&quot;被替换为&quot;~~&quot;</span></span><br></pre></td></tr></table></figure>
+<p>另一种是通过正则表达式替换：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;A,,B;C ,D&quot;</span>;</span><br><span class="line">s.replaceAll(<span class="string">&quot;[\\,\\;\\s]+&quot;</span>, <span class="string">&quot;,&quot;</span>); <span class="comment">// &quot;A,B,C,D&quot;</span></span><br></pre></td></tr></table></figure>
+<p>通过正则表达式，把匹配的子串统一替换为<code>&quot;,&quot;</code></p>
+<h4 id="分割字符串"><a href="#分割字符串" class="headerlink" title="分割字符串"></a>分割字符串</h4><p>分割字符串使用<code>split()</code>方法，并且传入的也是正则表达式：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;A,B,C,D&quot;</span>;</span><br><span class="line">String[] ss = s.split(<span class="string">&quot;\\,&quot;</span>); <span class="comment">// &#123;&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="拼接字符串"><a href="#拼接字符串" class="headerlink" title="拼接字符串"></a>拼接字符串</h4><p>拼接字符串使用静态方法<code>join()</code>，它用指定的字符串连接字符串数组：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String[] arr = &#123;<span class="string">&quot;A&quot;</span>, <span class="string">&quot;B&quot;</span>, <span class="string">&quot;C&quot;</span>&#125;;</span><br><span class="line">String s = String.join(<span class="string">&quot;***&quot;</span>, arr); <span class="comment">// &quot;A***B***C&quot;</span></span><br></pre></td></tr></table></figure>
+<h4 id="格式化字符串"><a href="#格式化字符串" class="headerlink" title="格式化字符串"></a>格式化字符串</h4><p>字符串提供了<code>formatted()</code>方法和<code>format()</code>静态方法，可以传入其他参数，替换占位符，然后生成新的字符串：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// String</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s = <span class="string">&quot;Hi %s, your score is %d!&quot;</span>;</span><br><span class="line">        System.out.println(s.formatted(<span class="string">&quot;Alice&quot;</span>, <span class="number">80</span>));</span><br><span class="line">        System.out.println(String.format(<span class="string">&quot;Hi %s, your score is %.2f!&quot;</span>, <span class="string">&quot;Bob&quot;</span>, <span class="number">59.5</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有几个占位符，后面就传入几个参数。参数类型要和占位符一致。常用的占位符有：</p>
+<ul>
+<li><code>%s</code>：显示字符串；</li>
+<li><code>%d</code>：显示整数；</li>
+<li><code>%x</code>：显示十六进制整数；</li>
+<li><code>%f</code>：显示浮点数。</li>
+</ul>
+<p>占位符还可以带格式，例如<code>%.2f</code>表示显示两位小数。</p>
+<h4 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h4><p>要把任意基本类型或引用类型转换为字符串，可以使用静态方法<code>valueOf()</code>。这是一个重载方法，编译器会根据参数自动选择合适的方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String.valueOf(<span class="number">123</span>); <span class="comment">// &quot;123&quot;</span></span><br><span class="line">String.valueOf(<span class="number">45.67</span>); <span class="comment">// &quot;45.67&quot;</span></span><br><span class="line">String.valueOf(<span class="keyword">true</span>); <span class="comment">// &quot;true&quot;</span></span><br><span class="line">String.valueOf(<span class="keyword">new</span> Object()); <span class="comment">// 类似java.lang.Object@636be97c</span></span><br></pre></td></tr></table></figure>
+<p>要把字符串转换为其他类型，就需要根据情况。</p>
+<p>把字符串转换为<code>int</code>类型：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> n1 = Integer.parseInt(<span class="string">&quot;123&quot;</span>); <span class="comment">// 123</span></span><br><span class="line"><span class="keyword">int</span> n2 = Integer.parseInt(<span class="string">&quot;ff&quot;</span>, <span class="number">16</span>); <span class="comment">// 按十六进制转换，255</span></span><br></pre></td></tr></table></figure>
+<p>把字符串转换为<code>boolean</code>类型：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">boolean</span> b1 = Boolean.parseBoolean(<span class="string">&quot;true&quot;</span>); <span class="comment">// true</span></span><br><span class="line"><span class="keyword">boolean</span> b2 = Boolean.parseBoolean(<span class="string">&quot;FALSE&quot;</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p><code>Integer</code>有个<code>getInteger(String)</code>方法，它不是将字符串转换为<code>int</code>，而是把该字符串对应的系统变量转换为<code>Integer</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Integer.getInteger(<span class="string">&quot;java.version&quot;</span>); <span class="comment">// 版本号，11</span></span><br></pre></td></tr></table></figure>
+<h4 id="转换为char"><a href="#转换为char" class="headerlink" title="转换为char[]"></a>转换为char[]</h4><p><code>String</code>和<code>char[]</code>类型可以互相转换：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span>[] cs = <span class="string">&quot;Hello&quot;</span>.toCharArray(); <span class="comment">// String -&gt; char[]</span></span><br><span class="line">String s = <span class="keyword">new</span> String(cs); <span class="comment">// char[] -&gt; String</span></span><br></pre></td></tr></table></figure>
+<p>通过<code>new String(char[])</code>创建新的<code>String</code>实例时，它并不会直接引用传入的<code>char[]</code>数组而是会复制一份，所以修改外部的<code>char[]</code>数组不会影响<code>String</code>实例内部的<code>char[]</code>数组</p>
+<h4 id="字符编码"><a href="#字符编码" class="headerlink" title="字符编码"></a>字符编码</h4><p><code>ASCII</code>编码占用一个字节，编码范围从<code>0</code>到<code>127</code>，最高位始终为<code>0</code></p>
+<p><code>GB2312</code>标准使用两个字节表示一个汉字，其中第一个字节的最高位始终为<code>1</code>，以便和<code>ASCII</code>编码区分开</p>
+<p>为了统一全球所有语言的编码，全球统一码联盟发布了<code>Unicode</code>编码，<code>Unicode</code>编码需要两个或者更多字节表示</p>
+<p>英文字符<code>&#39;A&#39;</code>的<code>ASCII</code>编码和<code>Unicode</code>编码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">         ┌────┐</span><br><span class="line">ASCII:   │ 41 │</span><br><span class="line">         └────┘</span><br><span class="line">         ┌────┬────┐</span><br><span class="line">Unicode: │ 00 │ 41 │</span><br><span class="line">         └────┴────┘</span><br></pre></td></tr></table></figure>
+<p>中文字符<code>&#39;中&#39;</code>的<code>GB2312</code>编码和<code>Unicode</code>编码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">         ┌────┬────┐</span><br><span class="line">GB2312:  │ d6 │ d0 │</span><br><span class="line">         └────┴────┘</span><br><span class="line">         ┌────┬────┐</span><br><span class="line">Unicode: │ 4e │ 2d │</span><br><span class="line">         └────┴────┘</span><br></pre></td></tr></table></figure>
+<p>因为英文字符的<code>Unicode</code>编码高字节总是<code>00</code>，包含大量英文的文本会浪费空间，所以出现了<code>UTF-8</code>编码，它是一种变长编码，用来把固定长度的<code>Unicode</code>编码变成1～4字节的变长编码。通过<code>UTF-8</code>编码，英文字符<code>&#39;A&#39;</code>的<code>UTF-8</code>编码变为<code>0x41</code>，正好和<code>ASCII</code>码一致，而中文<code>&#39;中&#39;</code>的<code>UTF-8</code>编码为3字节<code>0xe4b8ad</code>。</p>
+<p>在Java中，<code>char</code>类型实际上就是两个字节的<code>Unicode</code>编码，Java的<code>String</code>和<code>char</code>在内存中总是以Unicode编码表示。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>Java核心类</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Java核心类</tag>
+      </tags>
+  </entry>
 </search>
