@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"goodyaoshi.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="枚举类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="枚举类">
+<meta property="og:url" content="https://goodyaoshi.github.io/Java/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/%E6%9E%9A%E4%B8%BE%E7%B1%BB/index.html">
+<meta property="og:site_name" content="Goodyaoshi">
+<meta property="og:description" content="枚举类">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-25T12:28:30.000Z">
+<meta property="article:modified_time" content="2021-10-26T07:20:31.429Z">
+<meta property="article:author" content="Goodyaoshi">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="面向对象编程">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://goodyaoshi.github.io/Java/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/%E6%9E%9A%E4%B8%BE%E7%B1%BB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>枚举类 | Goodyaoshi</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Goodyaoshi</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://goodyaoshi.github.io/Java/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/%E6%9E%9A%E4%B8%BE%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Goodyaoshi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Goodyaoshi">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          枚举类
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-25 20:28:30" itemprop="dateCreated datePublished" datetime="2021-10-25T20:28:30+08:00">2021-10-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-10-26 15:20:31" itemprop="dateModified" datetime="2021-10-26T15:20:31+08:00">2021-10-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">面向对象编程</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">Java核心类</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">枚举类</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="枚举类"><a href="#枚举类" class="headerlink" title="枚举类"></a>枚举类</h4><p>在Java中，我们可以通过<code>static final</code>来定义常量：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Weekday</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SUN = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MON = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> TUE = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> WED = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> THU = <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> FRI = <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SAT = <span class="number">6</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用常量的时候，可以这么引用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (day == Weekday.SAT || day == Weekday.SUN) &#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> work at home</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也可以把常量定义为字符串类型：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Color</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String RED = <span class="string">&quot;r&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String GREEN = <span class="string">&quot;g&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String BLUE = <span class="string">&quot;b&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用常量的时候，可以这么引用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String color = ...</span><br><span class="line"><span class="keyword">if</span> (Color.RED.equals(color)) &#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>无论是<code>int</code>常量还是<code>String</code>常量，使用这些常量来表示一组枚举值的时候，有一个严重的问题就是，编译器无法检查每个值的合理性：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (weekday == <span class="number">6</span> || weekday == <span class="number">7</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (tasks == Weekday.MON) &#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span></span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码编译和运行均不会报错，但存在两个问题：</p>
+<ul>
+<li>注意到<code>Weekday</code>定义的常量范围是<code>0</code>~<code>6</code>，并不包含<code>7</code>，编译器无法检查不在枚举中的<code>int</code>值；</li>
+<li>定义的常量仍可与其他变量比较，但其用途并非是枚举星期值</li>
+</ul>
+<h4 id="enum"><a href="#enum" class="headerlink" title="enum"></a>enum</h4><p>用<code>enum</code>来定义枚举类可以让编译器自动检查某个值在枚举的集合内，并且不同用途的枚举需要不同的类型来标记：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// enum</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Weekday day = Weekday.SUN;</span><br><span class="line">        <span class="keyword">if</span> (day == Weekday.SAT || day == Weekday.SUN) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Work at home!&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Work at office!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Weekday</span> </span>&#123;</span><br><span class="line">    SUN, MON, TUE, WED, THU, FRI, SAT;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义枚举类是通过关键字<code>enum</code>实现的，我们只需依次列出枚举的常量名。</p>
+<p>使用<code>enum</code>定义枚举有如下好处：</p>
+<ul>
+<li><code>enum</code>常量本身带有类型信息，编译器会自动检查出类型错误。</li>
+<li>不可能引用到非枚举的值，因为无法通过编译。</li>
+<li>不同类型的枚举不能互相比较或者赋值，因为类型不符。</li>
+</ul>
+<h4 id="enum的比较"><a href="#enum的比较" class="headerlink" title="enum的比较"></a>enum的比较</h4><p>使用<code>enum</code>定义的枚举类是一种引用类型。前面我们讲到，引用类型比较，要使用<code>equals()</code>方法，如果使用<code>==</code>比较，它比较的是两个引用类型的变量是否是同一个对象。因此，引用类型比较，要始终使用<code>equals()</code>方法，但<code>enum</code>类型可以例外。</p>
+<p>这是因为<code>enum</code>类型的每个常量在JVM中只有一个唯一实例，所以可以直接用<code>==</code>比较：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if (day &#x3D;&#x3D; Weekday.FRI) &#123; &#x2F;&#x2F; ok!</span><br><span class="line">&#125;</span><br><span class="line">if (day.equals(Weekday.SUN)) &#123; &#x2F;&#x2F; ok, but more code!</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="enum类型"><a href="#enum类型" class="headerlink" title="enum类型"></a>enum类型</h4><p><code>enum</code>定义的类型就是<code>class</code>，只不过它有以下几个特点：</p>
+<ul>
+<li>定义的<code>enum</code>类型总是继承自<code>java.lang.Enum</code>，且无法被继承；</li>
+<li>只能定义出<code>enum</code>的实例，而无法通过<code>new</code>操作符创建<code>enum</code>的实例；</li>
+<li>定义的每个实例都是引用类型的唯一实例；</li>
+<li>可以将<code>enum</code>类型用于<code>switch</code>语句。</li>
+</ul>
+<p>定义的<code>Color</code>枚举类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">Color</span> </span>&#123;</span><br><span class="line">    RED, GREEN, BLUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译器编译出的<code>class</code>大概就像这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Color</span> <span class="keyword">extends</span> <span class="title">Enum</span> </span>&#123; <span class="comment">// 继承自Enum，标记为final class</span></span><br><span class="line">    <span class="comment">// 每个实例均为全局唯一:</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color RED = <span class="keyword">new</span> Color();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color GREEN = <span class="keyword">new</span> Color();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color BLUE = <span class="keyword">new</span> Color();</span><br><span class="line">    <span class="comment">// private构造方法，确保外部无法调用new操作符:</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Color</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以编译后的<code>enum</code>类和普通<code>class</code>并没有任何区别。</p>
+<p>因为<code>enum</code>是一个<code>class</code>，每个枚举的值都是<code>class</code>实例，因此这些实例有一些方法：</p>
+<h4 id="name"><a href="#name" class="headerlink" title="name()"></a>name()</h4><p>返回常量名：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s = Weekday.SUN.name(); <span class="comment">// &quot;SUN&quot;</span></span><br></pre></td></tr></table></figure>
+<h4 id="ordinal"><a href="#ordinal" class="headerlink" title="ordinal()"></a>ordinal()</h4><p>返回定义的常量的顺序，从0开始计数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> n = Weekday.MON.ordinal(); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<p>改变枚举常量定义的顺序就会导致<code>ordinal()</code>返回值发生变化：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">Weekday</span> </span>&#123;</span><br><span class="line">    SUN, MON, TUE, WED, THU, FRI, SAT;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>和</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">Weekday</span> </span>&#123;</span><br><span class="line">    MON, TUE, WED, THU, FRI, SAT, SUN;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>的<code>ordinal</code>就是不同的</p>
+<p>可以定义<code>private</code>的构造方法，并且给每个枚举常量添加字段，这样就无需担心顺序的变化：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// enum</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Weekday day = Weekday.SUN;</span><br><span class="line">        <span class="keyword">if</span> (day.dayValue == <span class="number">6</span> || day.dayValue == <span class="number">0</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Work at home!&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Work at office!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Weekday</span> </span>&#123;</span><br><span class="line">    MON(<span class="number">1</span>), TUE(<span class="number">2</span>), WED(<span class="number">3</span>), THU(<span class="number">4</span>), FRI(<span class="number">5</span>), SAT(<span class="number">6</span>), SUN(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> dayValue;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Weekday</span><span class="params">(<span class="keyword">int</span> dayValue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.dayValue = dayValue;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>默认枚举常量调用<code>toString()</code>会返回和<code>name()</code>一样的字符串，<code>toString()</code>可以被覆写，而<code>name()</code>则不行，覆写<code>toString()</code>的目的是在输出时更有可读性：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// enum</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Weekday day = Weekday.SUN;</span><br><span class="line">        <span class="keyword">if</span> (day.dayValue == <span class="number">6</span> || day.dayValue == <span class="number">0</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Today is &quot;</span> + day + <span class="string">&quot;. Work at home!&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Today is &quot;</span> + day + <span class="string">&quot;. Work at office!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Weekday</span> </span>&#123;</span><br><span class="line">    MON(<span class="number">1</span>, <span class="string">&quot;星期一&quot;</span>), TUE(<span class="number">2</span>, <span class="string">&quot;星期二&quot;</span>), WED(<span class="number">3</span>, <span class="string">&quot;星期三&quot;</span>), THU(<span class="number">4</span>, <span class="string">&quot;星期四&quot;</span>), FRI(<span class="number">5</span>, <span class="string">&quot;星期五&quot;</span>), SAT(<span class="number">6</span>, <span class="string">&quot;星期六&quot;</span>), SUN(<span class="number">0</span>, <span class="string">&quot;星期日&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> dayValue;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String chinese;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Weekday</span><span class="params">(<span class="keyword">int</span> dayValue, String chinese)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.dayValue = dayValue;</span><br><span class="line">        <span class="keyword">this</span>.chinese = chinese;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.chinese;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="switch"><a href="#switch" class="headerlink" title="switch"></a>switch</h4><p>枚举类可以应用在<code>switch</code>语句中，加上<code>default</code>语句，可以在漏写某个枚举常量时自动报错，从而及时发现错误：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// switch</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Weekday day = Weekday.SUN;</span><br><span class="line">        <span class="keyword">switch</span>(day) &#123;</span><br><span class="line">        <span class="keyword">case</span> MON:</span><br><span class="line">        <span class="keyword">case</span> TUE:</span><br><span class="line">        <span class="keyword">case</span> WED:</span><br><span class="line">        <span class="keyword">case</span> THU:</span><br><span class="line">        <span class="keyword">case</span> FRI:</span><br><span class="line">            System.out.println(<span class="string">&quot;Today is &quot;</span> + day + <span class="string">&quot;. Work at office!&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> SAT:</span><br><span class="line">        <span class="keyword">case</span> SUN:</span><br><span class="line">            System.out.println(<span class="string">&quot;Today is &quot;</span> + day + <span class="string">&quot;. Work at home!&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;cannot process &quot;</span> + day);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Weekday</span> </span>&#123;</span><br><span class="line">    MON, TUE, WED, THU, FRI, SAT, SUN;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" rel="tag"># 面向对象编程</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Java/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/JavaBean/" rel="prev" title="JavaBean">
+      <i class="fa fa-chevron-left"></i> JavaBean
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">枚举类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#enum"><span class="nav-number">2.</span> <span class="nav-text">enum</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#enum%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-number">3.</span> <span class="nav-text">enum的比较</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#enum%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">enum类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#name"><span class="nav-number">5.</span> <span class="nav-text">name()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ordinal"><span class="nav-number">6.</span> <span class="nav-text">ordinal()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#switch"><span class="nav-number">7.</span> <span class="nav-text">switch</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Goodyaoshi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Goodyaoshi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
