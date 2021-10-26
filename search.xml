@@ -1763,4 +1763,97 @@
         <tag>面向对象编程</tag>
       </tags>
   </entry>
+  <entry>
+    <title>BigInteger和BigDecimal</title>
+    <url>/Java/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/BigInteger%E5%92%8CBigDecimal/</url>
+    <content><![CDATA[<h4 id="BigInteger"><a href="#BigInteger" class="headerlink" title="BigInteger"></a>BigInteger</h4><p>在Java中，由CPU原生提供的整型最大范围是64位的<code>long</code>型整数。如果使用的整数范围超过了<code>long</code>型，就只能用软件来模拟一个大整数。<code>java.math.BigInteger</code>就是用来表示任意大小的整数。<code>BigInteger</code>内部用一个<code>int[]</code>数组来模拟一个非常大的整数：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">BigInteger bi = <span class="keyword">new</span> BigInteger(<span class="string">&quot;1234567890&quot;</span>);</span><br><span class="line">System.out.println(bi.pow(<span class="number">5</span>)); <span class="comment">// 2867971860299718107233761438093672048294900000</span></span><br></pre></td></tr></table></figure>
+<p>对<code>BigInteger</code>做运算的时候，只能使用实例方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">BigInteger i1 = <span class="keyword">new</span> BigInteger(<span class="string">&quot;1234567890&quot;</span>);</span><br><span class="line">BigInteger i2 = <span class="keyword">new</span> BigInteger(<span class="string">&quot;12345678901234567890&quot;</span>);</span><br><span class="line">BigInteger sum = i1.add(i2); <span class="comment">// 12345678902469135780</span></span><br></pre></td></tr></table></figure>
+<p>和<code>long</code>型整数运算比，<code>BigInteger</code>不会有范围限制，但缺点是速度比较慢，如果<code>BigInteger</code>没有超出<code>long</code>的范围，<code>BigInteger</code>可以转换成<code>long</code>型：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">BigInteger i = <span class="keyword">new</span> BigInteger(<span class="string">&quot;123456789000&quot;</span>);</span><br><span class="line">System.out.println(i.longValue()); <span class="comment">// 123456789000</span></span><br><span class="line">System.out.println(i.multiply(i).longValueExact()); <span class="comment">// java.lang.ArithmeticException: BigInteger out of long range</span></span><br></pre></td></tr></table></figure>
+<p>使用<code>longValueExact()</code>方法时，如果超出了<code>long</code>型的范围，会抛出<code>ArithmeticException</code></p>
+<p><code>BigInteger</code>和<code>Integer</code>、<code>Long</code>一样，也是不可变类，并且也继承自<code>Number</code>类，并且因为<code>Number</code>定义了转换为基本类型的几个方法：</p>
+<ul>
+<li>转换为<code>byte</code>：<code>byteValue()</code></li>
+<li>转换为<code>short</code>：<code>shortValue()</code></li>
+<li>转换为<code>int</code>：<code>intValue()</code></li>
+<li>转换为<code>long</code>：<code>longValue()</code></li>
+<li>转换为<code>float</code>：<code>floatValue()</code></li>
+<li>转换为<code>double</code>：<code>doubleValue()</code></li>
+</ul>
+<p>因此通过上述方法，可以把<code>BigInteger</code>转换成基本类型。但是如果<code>BigInteger</code>表示的范围超过了基本类型的范围，转换时将丢失高位信息，即结果不一定是准确的。</p>
+<h4 id="BigDecimal"><a href="#BigDecimal" class="headerlink" title="BigDecimal"></a>BigDecimal</h4><p>和<code>BigInteger</code>类似，<code>BigDecimal</code>可以表示一个任意大小且精度完全准确的浮点数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">BigDecimal bd = <span class="keyword">new</span> BigDecimal(<span class="string">&quot;123.4567&quot;</span>);</span><br><span class="line">System.out.println(bd.multiply(bd)); <span class="comment">// 15241.55677489</span></span><br></pre></td></tr></table></figure>
+<p><code>BigDecimal</code>用<code>scale()</code>表示小数位数：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">BigDecimal d1 = <span class="keyword">new</span> BigDecimal(<span class="string">&quot;123.45&quot;</span>);</span><br><span class="line">BigDecimal d2 = <span class="keyword">new</span> BigDecimal(<span class="string">&quot;123.4500&quot;</span>);</span><br><span class="line">BigDecimal d3 = <span class="keyword">new</span> BigDecimal(<span class="string">&quot;1234500&quot;</span>);</span><br><span class="line">System.out.println(d1.scale()); <span class="comment">// 2,两位小数</span></span><br><span class="line">System.out.println(d2.scale()); <span class="comment">// 4</span></span><br><span class="line">System.out.println(d3.scale()); <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+<p>通过<code>BigDecimal</code>的<code>stripTrailingZeros()</code>方法，可以将一个<code>BigDecimal</code>格式化为一个相等的，但去掉了末尾0的<code>BigDecimal</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">BigDecimal d1 = <span class="keyword">new</span> BigDecimal(<span class="string">&quot;123.4500&quot;</span>);</span><br><span class="line">BigDecimal d2 = d1.stripTrailingZeros();</span><br><span class="line">System.out.println(d1.scale()); <span class="comment">// 4</span></span><br><span class="line">System.out.println(d2.scale()); <span class="comment">// 2,因为去掉了00</span></span><br><span class="line"></span><br><span class="line">BigDecimal d3 = <span class="keyword">new</span> BigDecimal(<span class="string">&quot;1234500&quot;</span>);</span><br><span class="line">BigDecimal d4 = d3.stripTrailingZeros();</span><br><span class="line">System.out.println(d3.scale()); <span class="comment">// 0</span></span><br><span class="line">System.out.println(d4.scale()); <span class="comment">// -2</span></span><br></pre></td></tr></table></figure>
+<p>如果一个<code>BigDecimal</code>的<code>scale()</code>返回负数，表示这个数是个整数，并且末尾有负数的绝对值个0。</p>
+<p>可以对一个<code>BigDecimal</code>设置它的<code>scale</code>，如果精度比原始值低，那么按照指定的方法进行四舍五入或者直接截断：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.math.BigDecimal;</span><br><span class="line"><span class="keyword">import</span> java.math.RoundingMode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        BigDecimal d1 = <span class="keyword">new</span> BigDecimal(<span class="string">&quot;123.456789&quot;</span>);</span><br><span class="line">        BigDecimal d2 = d1.setScale(<span class="number">4</span>, RoundingMode.HALF_UP); <span class="comment">// 四舍五入，123.4568</span></span><br><span class="line">        BigDecimal d3 = d1.setScale(<span class="number">4</span>, RoundingMode.DOWN); <span class="comment">// 直接截断，123.4567</span></span><br><span class="line">        System.out.println(d2);</span><br><span class="line">        System.out.println(d3);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对<code>BigDecimal</code>做加、减、乘时，精度不会丢失，但是做除法时，存在无法除尽的情况，这时，就必须指定精度以及如何进行截断：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">BigDecimal d1 = <span class="keyword">new</span> BigDecimal(<span class="string">&quot;123.456&quot;</span>);</span><br><span class="line">BigDecimal d2 = <span class="keyword">new</span> BigDecimal(<span class="string">&quot;23.456789&quot;</span>);</span><br><span class="line">BigDecimal d3 = d1.divide(d2, <span class="number">10</span>, RoundingMode.HALF_UP); <span class="comment">// 保留10位小数并四舍五入</span></span><br><span class="line">BigDecimal d4 = d1.divide(d2); <span class="comment">// 报错：ArithmeticException，因为除不尽</span></span><br></pre></td></tr></table></figure>
+<p>还可以对<code>BigDecimal</code>做除法的同时求余数：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.math.BigDecimal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        BigDecimal n = <span class="keyword">new</span> BigDecimal(<span class="string">&quot;12.345&quot;</span>);</span><br><span class="line">        BigDecimal m = <span class="keyword">new</span> BigDecimal(<span class="string">&quot;0.12&quot;</span>);</span><br><span class="line">        BigDecimal[] dr = n.divideAndRemainder(m);</span><br><span class="line">        System.out.println(dr[<span class="number">0</span>]); <span class="comment">// 102</span></span><br><span class="line">        System.out.println(dr[<span class="number">1</span>]); <span class="comment">// 0.105</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用<code>divideAndRemainder()</code>方法时，返回的数组包含两个<code>BigDecimal</code>，分别是商和余数，其中商总是整数，余数不会大于除数。我们可以利用这个方法判断两个<code>BigDecimal</code>是否是整数倍数：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">BigDecimal n = <span class="keyword">new</span> BigDecimal(<span class="string">&quot;12.75&quot;</span>);</span><br><span class="line">BigDecimal m = <span class="keyword">new</span> BigDecimal(<span class="string">&quot;0.15&quot;</span>);</span><br><span class="line">BigDecimal[] dr = n.divideAndRemainder(m);</span><br><span class="line"><span class="keyword">if</span> (dr[<span class="number">1</span>].signum() == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">// n是m的整数倍</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="比较BigDecimal"><a href="#比较BigDecimal" class="headerlink" title="比较BigDecimal"></a>比较BigDecimal</h4><p>在比较两个<code>BigDecimal</code>的值是否相等时，使用<code>equals()</code>方法不但要求两个<code>BigDecimal</code>的值相等，还要求它们的<code>scale()</code>相等：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">BigDecimal d1 = <span class="keyword">new</span> BigDecimal(<span class="string">&quot;123.456&quot;</span>);</span><br><span class="line">BigDecimal d2 = <span class="keyword">new</span> BigDecimal(<span class="string">&quot;123.45600&quot;</span>);</span><br><span class="line">System.out.println(d1.equals(d2)); <span class="comment">// false,因为scale不同</span></span><br><span class="line">System.out.println(d1.equals(d2.stripTrailingZeros())); <span class="comment">// true,因为d2去除尾部0后scale变为2</span></span><br><span class="line">System.out.println(d1.compareTo(d2)); <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+<p>因此比较两个<code>BigDecimal</code>的值是否相等必须使用<code>compareTo()</code>方法来比较，它根据两个值的大小分别返回负数、正数和<code>0</code>，分别表示小于、大于和等于</p>
+<p>实际上一个<code>BigDecimal</code>是通过一个<code>BigInteger</code>和一个<code>scale</code>来表示的，即<code>BigInteger</code>表示一个完整的整数，而<code>scale</code>表示小数位数，<code>BigDecimal</code>也是从<code>Number</code>继承的，也是不可变对象</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>面向对象编程</category>
+        <category>Java核心类</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>面向对象编程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>常用工具类</title>
+    <url>/Java/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB/</url>
+    <content><![CDATA[<h4 id="Math"><a href="#Math" class="headerlink" title="Math"></a>Math</h4><p><code>Math</code>类就是用来进行数学计算的，它提供了大量的静态方法来便于我们实现数学计算：</p>
+<p>求绝对值：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Math.abs(-<span class="number">100</span>); <span class="comment">// 100</span></span><br><span class="line">Math.abs(-<span class="number">7.8</span>); <span class="comment">// 7.8</span></span><br></pre></td></tr></table></figure>
+<p>取最大或最小值：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Math.max(<span class="number">100</span>, <span class="number">99</span>); <span class="comment">// 100</span></span><br><span class="line">Math.min(<span class="number">1.2</span>, <span class="number">2.3</span>); <span class="comment">// 1.2</span></span><br></pre></td></tr></table></figure>
+<p>计算x的y次方：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Math.pow(<span class="number">2</span>, <span class="number">10</span>); <span class="comment">// 2的10次方=1024</span></span><br></pre></td></tr></table></figure>
+<p>计算x开根：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Math.sqrt(<span class="number">2</span>); <span class="comment">// 1.414...</span></span><br></pre></td></tr></table></figure>
+<p>计算ex次方：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Math.exp(<span class="number">2</span>); <span class="comment">// 7.389...</span></span><br></pre></td></tr></table></figure>
+<p>计算以e为底的对数：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Math.log(<span class="number">4</span>); <span class="comment">// 1.386...</span></span><br></pre></td></tr></table></figure>
+<p>计算以10为底的对数：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Math.log10(<span class="number">100</span>); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<p>三角函数：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Math.sin(<span class="number">3.14</span>); <span class="comment">// 0.00159...</span></span><br><span class="line">Math.cos(<span class="number">3.14</span>); <span class="comment">// -0.9999...</span></span><br><span class="line">Math.tan(<span class="number">3.14</span>); <span class="comment">// -0.0015...</span></span><br><span class="line">Math.asin(<span class="number">1.0</span>); <span class="comment">// 1.57079...</span></span><br><span class="line">Math.acos(<span class="number">1.0</span>); <span class="comment">// 0.0</span></span><br></pre></td></tr></table></figure>
+<p>Math还提供了几个数学常量：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">double</span> pi = Math.PI; <span class="comment">// 3.14159...</span></span><br><span class="line"><span class="keyword">double</span> e = Math.E; <span class="comment">// 2.7182818...</span></span><br><span class="line">Math.sin(Math.PI / <span class="number">6</span>); <span class="comment">// sin(π/6) = 0.5</span></span><br></pre></td></tr></table></figure>
+<p>生成一个随机数x，x的范围是<code>0 &lt;= x &lt; 1</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Math.random(); <span class="comment">// 0.53907... 每次都不一样</span></span><br></pre></td></tr></table></figure>
+<h4 id="Random"><a href="#Random" class="headerlink" title="Random"></a>Random</h4><p><code>Random</code>用来创建伪随机数，伪随机数是指只要给定一个初始的种子，产生的随机数序列是完全一样的，要生成一个随机数，可以使用<code>nextInt()</code>、<code>nextLong()</code>、<code>nextFloat()</code>、<code>nextDouble()</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Random r = <span class="keyword">new</span> Random();</span><br><span class="line">r.nextInt(); <span class="comment">// 2071575453,每次都不一样</span></span><br><span class="line">r.nextInt(<span class="number">10</span>); <span class="comment">// 5,生成一个[0,10)之间的int</span></span><br><span class="line">r.nextLong(); <span class="comment">// 8811649292570369305,每次都不一样</span></span><br><span class="line">r.nextFloat(); <span class="comment">// 0.54335...生成一个[0,1)之间的float</span></span><br><span class="line">r.nextDouble(); <span class="comment">// 0.3716...生成一个[0,1)之间的double</span></span><br></pre></td></tr></table></figure>
+<p>创建<code>Random</code>实例时不给定种子，就使用系统当前时间戳作为种子，因此每次运行时种子不同，得到的伪随机数序列就不同。创建<code>Random</code>实例时指定一个种子，就会得到完全确定的随机数序列：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Random r = <span class="keyword">new</span> Random(<span class="number">12345</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">            System.out.println(r.nextInt(<span class="number">100</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 51, 80, 41, 28, 55...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="SecureRandom"><a href="#SecureRandom" class="headerlink" title="SecureRandom"></a>SecureRandom</h4><p>有伪随机数，就有真随机数。但是真随机数几乎无法获得，而我们真正想要的是一个不可预测的安全随机数。<code>SecureRandom</code>就是用来创建安全的随机数的：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">SecureRandom sr = <span class="keyword">new</span> SecureRandom();</span><br><span class="line">System.out.println(sr.nextInt(<span class="number">100</span>));</span><br></pre></td></tr></table></figure>
+<p><code>SecureRandom</code>无法指定种子，它使用RNG（random number generator）算法。<code>SecureRandom</code>的安全性是通过操作系统提供的安全的随机种子来生成随机数。这个种子是通过CPU的热噪声、读写磁盘的字节、网络流量等各种随机事件产生的“熵”。</p>
+<p>在密码学中安全的随机数非常重要。如果使用不安全的伪随机数，所有加密体系都将被攻破。因此时刻牢记必须使用<code>SecureRandom</code>来产生安全的随机数。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>面向对象编程</category>
+        <category>Java核心类</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>面向对象编程</tag>
+      </tags>
+  </entry>
 </search>
