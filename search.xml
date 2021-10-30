@@ -2456,4 +2456,50 @@
         <tag>Java</tag>
       </tags>
   </entry>
+  <entry>
+    <title>擦拭法</title>
+    <url>/Java/%E6%B3%9B%E5%9E%8B/%E6%93%A6%E6%8B%AD%E6%B3%95/</url>
+    <content><![CDATA[<h4 id="擦拭法"><a href="#擦拭法" class="headerlink" title="擦拭法"></a>擦拭法</h4><p>Java语言的泛型实现方式是擦拭法（Type Erasure），擦拭法是指，虚拟机对泛型其实一无所知，所有的工作都是编译器做的。</p>
+<p>比如编写了一个泛型类<code>Pair&lt;T&gt;</code>，这是编译器看到的代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> T first;</span><br><span class="line">    <span class="keyword">private</span> T last;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">(T first, T last)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.first = first;</span><br><span class="line">        <span class="keyword">this</span>.last = last;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getFirst</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> first;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getLast</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> last;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而虚拟机根本不知道泛型，这是虚拟机执行的代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object first;</span><br><span class="line">    <span class="keyword">private</span> Object last;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">(Object first, Object last)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.first = first;</span><br><span class="line">        <span class="keyword">this</span>.last = last;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getFirst</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> first;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getLast</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> last;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Java使用擦拭法实现泛型，导致了：</p>
+<ul>
+<li>编译器把类型<code>&lt;T&gt;</code>视为<code>Object</code>；</li>
+<li>编译器根据<code>&lt;T&gt;</code>实现安全的强制转型。</li>
+</ul>
+<p>使用泛型的时候，编写的代码也是编译器看到的代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Pair&lt;String&gt; p = <span class="keyword">new</span> Pair&lt;&gt;(<span class="string">&quot;Hello&quot;</span>, <span class="string">&quot;world&quot;</span>);</span><br><span class="line">String first = p.getFirst();</span><br><span class="line">String last = p.getLast();</span><br></pre></td></tr></table></figure>
+<p>而虚拟机执行的代码并没有泛型：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Pair p = <span class="keyword">new</span> Pair(<span class="string">&quot;Hello&quot;</span>, <span class="string">&quot;world&quot;</span>);</span><br><span class="line">String first = (String) p.getFirst();</span><br><span class="line">String last = (String) p.getLast();</span><br></pre></td></tr></table></figure>
+<p>Java的泛型是由编译器在编译时实行的，编译器内部永远把所有类型<code>T</code>视为<code>Object</code>处理，但是在需要转型的时候，编译器会根据<code>T</code>的类型自动为我们实行安全地强制转型。</p>
+<h4 id="泛型的局限"><a href="#泛型的局限" class="headerlink" title="泛型的局限"></a>泛型的局限</h4><p>了解了Java泛型的实现方式——擦拭法就知道了Java泛型的局限：</p>
+<ul>
+<li>局限一：<code>&lt;T&gt;</code>不能是基本类型，因为实际类型是<code>Object</code>，<code>Object</code>类型无法持有基本类型；</li>
+<li>局限二：无法取得带泛型的<code>Class</code>，因为<code>T</code>是<code>Object</code>，获取<code>Class</code>时，获取到的是同一个<code>Class</code>；</li>
+<li>局限三：无法判断带泛型的类型，因为只有唯一的<code>Pair.class</code>；</li>
+<li>局限四：不能实例化<code>T</code>类型，因为擦拭后实际上变成了<code>Object</code></li>
+</ul>
+<p>要实例化<code>T</code>类型必须借助额外的<code>Class&lt;T&gt;</code>参数：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> T first;</span><br><span class="line">    <span class="keyword">private</span> T last;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">(Class&lt;T&gt; clazz)</span> </span>&#123;</span><br><span class="line">        first = clazz.newInstance();</span><br><span class="line">        last = clazz.newInstance();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="不恰当的覆写方法"><a href="#不恰当的覆写方法" class="headerlink" title="不恰当的覆写方法"></a>不恰当的覆写方法</h4><p>有些时候一个看似正确定义的方法会无法通过编译：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(T t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span> == t;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为定义的<code>equals(T t)</code>方法实际上会被擦拭成<code>equals(Object t)</code>，而这个方法是继承自<code>Object</code>的，编译器会阻止一个实际上会变成覆写的泛型方法定义，换个方法名，避开与<code>Object.equals(Object)</code>的冲突就可以成功编译：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">same</span><span class="params">(T t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span> == t;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="泛型继承"><a href="#泛型继承" class="headerlink" title="泛型继承"></a>泛型继承</h4><p>一个类可以继承自一个泛型类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IntPair</span> <span class="keyword">extends</span> <span class="title">Pair</span>&lt;<span class="title">Integer</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用的时候，因为子类<code>IntPair</code>并没有泛型类型，所以正常使用即可：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">IntPair ip = <span class="keyword">new</span> IntPair(<span class="number">1</span>, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<p>在继承了泛型类型的情况下，子类可以获取父类的泛型类型，实际上Java的类型系统结构如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">                      ┌────┐</span><br><span class="line">                      │Type│</span><br><span class="line">                      └────┘</span><br><span class="line">                         ▲</span><br><span class="line">                         │</span><br><span class="line">   ┌────────────┬────────┴─────────┬───────────────┐</span><br><span class="line">   │            │                  │               │</span><br><span class="line">┌─────┐┌─────────────────┐┌────────────────┐┌────────────┐</span><br><span class="line">│Class││ParameterizedType││GenericArrayType││WildcardType│</span><br><span class="line">└─────┘└─────────────────┘└────────────────┘└────────────┘</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>泛型</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
 </search>
