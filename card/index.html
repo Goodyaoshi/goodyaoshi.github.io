@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+<title>健康证服务-证件查询</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,user-scalable=0">
+<link rel="stylesheet" href="./css/bootstrap.min.css">
+<link rel="stylesheet" href="./css/sweetalert2.min.css">
+<link rel="stylesheet" href="./css/font-awesome.min.css">
+<link rel="stylesheet" href="./css/timeline.css">
+<script type="text/javascript" src="./js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="./js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./js/sweetalert2.min.js"></script>
+<script type="text/javascript" src="./js/my.js"></script>
+<script type="text/javascript" src="./js/jquery.qrcode.min.js"></script>
+<script type="text/javascript" src="./js/analyticCode.js"></script>
+<script type="text/javascript" src="./js/base64.js"></script>
+<script type="text/javascript" src="./js/llqrcode.js"></script>
+
+
+<style>
+.divteImg {
+	width: 81px;
+	height: 89px;
+	margin-top: -16px;
+}
+.noselect{
+	moz-user-select: -moz-none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.zhang{
+pointer-events: none;
+}
+.divteImg img {
+	width: 79px;
+	height: 87px !important
+}
+
+	.wrap-dialog {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        font-size: 16px;
+        text-align: center;
+        background-color: rgba(0, 0, 0, .4);
+		
+        z-index: 999;
+    }
+    .dialog {
+        position: relative;
+            margin: 260px auto;
+        width: 300px;
+        background-color: #FFFFFF;
+		border: 1px solid transparent;
+		border-radius: 20px;
+		
+    }
+    .dialog .dialog-header {
+        height: 20rpx;
+        padding: 10rpx;
+
+    }
+    .dialog .dialog-body {
+        height: 30rpx;
+        padding: 20rpx;
+		color:red
+    }
+    .dialog .dialog-footer {
+        padding: 8px;
+      
+    }
+    .dialogbtn {
+        width: 70px;
+        padding: 2px;
+    }
+    .hide {
+        display: none;
+    }
+    .ml50 {
+        margin-left: 50px;
+    }
+</style>
+<script type="text/javascript">
+
+$(function() {
+	
+	var ua = window.navigator.userAgent.toLowerCase();
+    if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+        //重写alert方法，alert()方法重写，不能传多余参数
+        window.alert = function(name){
+            var iframe = document.createElement("IFRAME");
+            iframe.style.display="none";
+            iframe.setAttribute("src", 'data:text/plain');
+            document.documentElement.appendChild(iframe);
+            window.frames[0].window.alert(name);
+            iframe.parentNode.removeChild(iframe);
+        }
+    }
+    
+    $('#btnApply').click(function(){
+
+		dialogBox('实体证快递服务将产生快递费，并由快递公司通过到付方式收取。任何收费与本平台无关，特此声明。',
+                function () {
+                    
+					location.href = "../cert/applyCertLst?id= 038ef900-53bf-11eb-8e0b-00163e045ade&&openid=";
+                    // do something
+                },
+                function(){
+                    console.log("canceled");
+                    // do something
+                }
+            );
+		
+		 
+	});
+	
+	$.post('timeline?id=038ef900-53bf-11eb-8e0b-00163e045ade',function(r) {
+		//
+		var timelines = r.data;
+		if(timelines && timelines.length) {
+			var tl,html='';
+			for(var i = timelines.length - 1; i >= 0; i--) {
+				tl = timelines[i];
+				html += '<li class="timeline"><div class="timeline-badge info">';
+				if(tl.type == '3') html += '<i class="fa fa-money"></i>';
+				else html += '<i class="fa fa-chevron-circle-up"></i>';
+				html += '</div><div class="timeline-panel"><div class="timeline-heading">';
+				html += '<h4 class="timeline-title">'+tl.title+'</h4>';
+				if(tl.time) {
+					html += '<p><small class="text-muted"><i class="fa fa-clock-o"></i>';
+					html += tl.time;
+					html +='</small></p>';
+				}
+				html += '</div>';
+				if(tl.memo) {
+					html += '<div class="timeline-body"><p>';
+					html += tl.memo;
+					html +='</p></div>';
+				}
+				html += '</div></li>';
+			}
+			$('#timelines').html(html);
+			$('#timelineArea').show();
+		}
+	});
+	
+	var idcard = $("#idcard").html();
+    var reIdcard = idcard.substring(0,idcard.length-5);
+    reIdcard = reIdcard + "*****" ;
+    $("#idcard").html(reIdcard);
+     var yrq=$("#rq").html();    
+     var rq=yrq.split("-")[0]+" 年 "+yrq.split("-")[1]+" 月 "+yrq.split("-")[2]+" 日 ";
+     $("#rq").html(rq);
+     var openid = "1";
+     if(openid == ""){
+    	 $("#code").qrcode({
+     		render: "canvas", //table方式
+     		width: 130, //宽度
+     		height:130, //高度  		
+     		//text: encodeBase64('038ef900-53bf-11eb-8e0b-00163e045ade','3') //任意内容
+     		//text:"http://hcp.gdsay.cn/sp/cert/card?id=038ef900-53bf-11eb-8e0b-00163e045ade"
+     		text:"http://120.76.223.229:2080/Hcwx/sp/cert/card?id=038ef900-53bf-11eb-8e0b-00163e045ade&&isQrcode=1"
+     	});
+    	 
+     }else{
+    	 $("#info").hide();
+    	 $("#ecode").css("height","60px");  
+    	 $("#ecodeText").css({"float":"unset","margin":"auto"});  
+     }
+    /*  $("#code").qrcode({
+    		render: "canvas", //table方式
+    		width: 130, //宽度
+    		height:130, //高度  		
+    		//text: encodeBase64('038ef900-53bf-11eb-8e0b-00163e045ade','3') //任意内容
+    		text:"http://hcp.gdsay.cn/sp/cert/card?id=038ef900-53bf-11eb-8e0b-00163e045ade"
+    	}); */
+     var orgidre="0a3201bc-f734-11e7-a36e-00163e0042be".replace('-','%2D');
+     var orgName="珠海上衝医院";
+     
+     var tourl="../org/evalFd?openid=o_d7FuGHkZtPILwbeS30ShcUjCNY&orgid=0a3201bc-f734-11e7-a36e-00163e0042be&name=珠海上衝医院&pageType=100";
+ 	 $('#btnDp').click(
+			function() {
+				location.href = "../org/evalFd?openid=o_d7FuGHkZtPILwbeS30ShcUjCNY&orgid=0a3201bc-f734-11e7-a36e-00163e0042be&name=珠海上衝医院&pageType=100";	
+			}); 
+});
+
+//加密方法。没有过滤首尾空格，即没有trim.
+//加密可以加密N次，对应解密N次就可以获取明文
+function encodeBase64(mingwen, times) {
+  var code = "";
+  var num = 1;
+  if (typeof times == 'undefined' || times == null || times == "") {
+      num = 1;
+  } else {
+      var vt = times + "";
+      num = parseInt(vt);
+  }
+
+  if (typeof mingwen == 'undefined' || mingwen == null || mingwen == "") {
+
+  } else {
+      code = mingwen;
+      for (var i = 0; i < num; i++) {
+          code = $.base64.encode(code);
+          // code = $.base64({data:code,type:0});
+      }
+  }
+  return code;
+}
+
+
+//解密方法。没有过滤首尾空格，即没有trim
+//加密可以加密N次，对应解密N次就可以获取明文
+function decodeBase64(mi, times) {
+  var mingwen = "";
+  var num = 1;
+  if (typeof times == 'undefined' || times == null || times == "") {
+      num = 1;
+  } else {
+      var vt = times + "";
+      num = parseInt(vt);
+  }
+
+
+  if (typeof mi == 'undefined' || mi == null || mi == "") {
+
+  } else {
+      mingwen = mi;
+      for (var i = 0; i < num; i++) {
+          mingwen = $.base64.decode(mingwen);
+          // mingwen = $.base64({data:mingwen,type:1,unicode:false});
+      }
+  }
+  return mingwen;
+}
+
+function toUtf8(str) {   
+    var out, i, len, c;   
+    out = "";   
+    len = str.length;   
+    for(i = 0; i < len; i++) {   
+    	c = str.charCodeAt(i);   
+    	if ((c >= 0x0001) && (c <= 0x007F)) {   
+        	out += str.charAt(i);   
+    	} else if (c > 0x07FF) {   
+        	out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));   
+        	out += String.fromCharCode(0x80 | ((c >>  6) & 0x3F));   
+        	out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));   
+    	} else {   
+        	out += String.fromCharCode(0xC0 | ((c >>  6) & 0x1F));   
+        	out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));   
+    	}   
+    }   
+    return out;   
+}
+
+function dialogBox(message, yesCallback, noCallback){
+        if(message){
+            $('.dialog-message').html(message);
+        }
+        // 显示遮罩和对话框
+        $('.wrap-dialog').removeClass("hide");
+        // 确定按钮
+        $('#confirm').click(function(){
+            $('.wrap-dialog').addClass("hide");
+            yesCallback();
+        });
+        // 取消按钮
+        $('#cancel').click(function(){
+            $('.wrap-dialog').addClass("hide");
+            noCallback();
+        });
+    }
+</script>
+</head>
+<body class="noselect">
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h3 class="panel-title">电子健康证</h3>
+		</div>
+		<div class="panel-body">
+			<div class="row"
+				style="width: 330px; height: 220px; margin: 0 auto; border: 0; padding: 0; border: 1px solid #F9FAFB; border-radius: 10px; box-shadow: 0px 0px 15px #2a2a2a;">
+				<p style="text-align: center; font-size: 16px; margin-top: 15px;">
+					<strong>广东省食品从业人员健康证明</strong>
+				</p>
+				
+				<div class="row">
+					<div style="float: left; width: 255px; padding-left: 30px;">
+						<div style="font-size: small; margin-top: 7px;">
+							姓&nbsp;&nbsp;&nbsp;&nbsp;名：<strong>李祖滔</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性&nbsp;&nbsp;&nbsp;&nbsp;别：<strong>男</strong>
+						</div>
+						<div style="font-size: small; margin-top: 7px;">
+							身份证号码：<strong><span id="idcard">440921200001284132</span></strong>
+						</div>
+						<div style="font-size: small; ">(或其他有效证明)</div>    
+						<div  style="margin-top: 6px;">
+							 <div style="font-size: small;">从业类别：<strong>食品卫生</strong></div> 
+						</div>
+						<div style="margin-left:4rem;margin-top:-20px;position:absolute;z-index:2; left:50%;">
+							<img class="zhang" style="width:70px;height:70px;" src="./images/fd_zhang.png"></img>
+						</div>
+						<div style="font-size: small; margin-top: 7px;z-index:3;">
+							体检单位：<strong>珠海上衝医院</strong>
+						</div>
+					</div>
+					<div style="float: left; width: 80px;">
+						<div class="divteImg" style="margin-top:18px">
+							<img class="zhang"
+								src="./images/header.jpg"
+								alt="" />
+						</div>
+					</div>
+					
+				</div>
+				<div class="row" style="padding-left: 30px; margin-top: 7px;">
+					<div style="font-size: small;">
+						体检日期：<strong><span id="rq">2021-10-05</span>（有效期一年）</strong>
+					</div>
+				</div>
+				<p style="text-align: center; font-size: 10px; margin-top: 2px;">
+					<strong>广东省市场监督管理局制</strong>
+					</p>
+			</div>
+			<div class="row" style="width: 330px; height: 220px; margin: 0 auto; border: 0; padding: 0; border: 1px solid #F9FAFB; border-radius: 10px; box-shadow: 0px 0px 15px #2a2a2a;line-height:110px;text-align:center;margin-top:5px">
+				<img class="zhang" style="width:330px;height:220px" src="./images/back.png"></img>
+			</div>
+			<div id="ecode" class="row"style="width: 330px; margin: 0 auto; margin-top: 15px; border: 0; padding: 0; border: 1px solid #F9FAFB;">
+				<div id="ecodeText" style="width: 30%; float: left; margin-left: 10px;   margin-top: 2px;">
+					<span id="info" style=" font-weight: bold; color: #4d4d4d; margin-top: 2px;">二维码信息（长按右方二维码进行防伪识别）</span>
+					<div style="margin-top:15px">
+						<button id="btnApply"  class="btn btn-block btn-success">申请实体证</button>
+					</div>	
+				</div>
+				
+				<div id="code" style="float: right; height: 140px;"></div>
+			</div>
+			<div class="row" style="width: 330px; margin: 0 auto; margin-top: 10px; border: 2px solid #f0f2f4; padding: 0;">
+				<p style="text-align: center; font-size: 16px; margin-top: 10px; color: #555555">
+					<strong>电子证卡使用说明</strong>
+				</p>
+				<p style="margin-left: 10px; font-size: 13px; margin-top: 10px; color: #555555">证明电子版和实体版具有同等效力，有效期内在全省范围内通用。</p>
+			
+			</div>
+			<div class="row" style="margin-top:10px;">
+				<div class="col-xs-1"></div>
+				<div class="col-xs-10">
+					<button id="btnDp" type="button" class="btn btn-block btn-success">机构点评</button>
+				</div>
+				<div class="col-xs-1"></div>
+			</div>
+			<!-- 时间轴 -->
+			<!-- <div class="container" id="timelineArea" style="display: none;">
+				<div class="col-md-6">
+					<h1 id="timeline">体检历程</h1>
+					<ul class="timeline" id="timelines"></ul>
+				</div>
+			</div> -->
+		</div>
+	</div>
+	
+	<div class="wrap-dialog hide">
+		<div class="dialog">
+			<div class="dialog-header">
+				<span class="dialog-title">温馨提示</span>
+			</div>
+			<div class="dialog-body">
+				<span class="dialog-message">你确认删除此条信息？</span>
+			</div>
+			<div class="dialog-footer">
+				<input type="button" class="dialogbtn" id="confirm" style='color:green' value="继续申请" />
+				<input type="button" class="dialogbtn ml50" id="cancel" style='color:red'  value="取消返回" />
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">
+//扩展移动端长按事件
+$.fn.longPress = function (fn) { 
+	let timer = null; 
+	let $this = this;
+	for (let i = 0; i < $this.length; i++) {
+		$this[i].addEventListener('touchstart', function (event) {
+		timer = setTimeout(fn, 600); 
+		}, false);
+		$this[i].addEventListener('touchend', function (event) {
+			clearTimeout(timer);
+			}, false);
+		} 
+	}
+//阻止触发默认事件
+//window.ontouchstart = function (e) { e.preventDefault(); };
+//仅对当前元素进行阻止触发默认事件
+document.getElementById("code").ontouchstart = function (e) { e.preventDefault(); };
+
+function alertChange(param){
+	if(param == 1){
+		var reIdcard = $("#idcard").html();
+		 var info="姓名：李祖滔\r\n身份证号码："+reIdcard+"\r\n体检日期：2021-10-05(有效期一年)";
+		 alert(info);
+	}else{
+		return;
+	}
+	$("#addDiv").remove();
+}
+
+$("#code").longPress(function(){
+
+	 var reIdcard = $("#idcard").html();
+	 var info="姓名：李祖滔\r\n\r\n身份证号码："+ reIdcard+"\r\n\r\n体检日期：2021-10-05(有效期一年)";
+	 alert(info); 
+	 //getUrl(document.getElementById("code"),'file-url');
+	//$('#ecode').append(str);
+});
+function getUrl(e,param){  
+	analyticCode.getUrl(param,e,function(url1,url2){
+		e.nextElementSibling.innerHTML = url1;
+		e.previousElementSibling.src = url2;
+	});
+}
+</script>
+</body>
+</html>
