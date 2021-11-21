@@ -152,14 +152,6 @@ $(function() {
 		}
 	});
 	
-	function getUrlPath() {
-		var url = document.location.toString();
-		if (url.indexOf("/") != -1) {
-			url = url.substring(0, url.lastIndexOf("/"));
-			return url
-		}
-	}
-	
 	var idcard = $("#idcard").html();
     var reIdcard = idcard.substring(0,idcard.length-5);
     reIdcard = reIdcard + "*****" ;
@@ -167,8 +159,7 @@ $(function() {
      var yrq=$("#rq").html();    
      var rq=yrq.split("-")[0]+" 年 "+yrq.split("-")[1]+" 月 "+yrq.split("-")[2]+" 日 ";
      $("#rq").html(rq);
-     var openid = "";
-	 var detailurl = getUrlPath()+"card.html";
+     var openid = "1";
      if(openid == ""){
     	 $("#code").qrcode({
      		render: "canvas", //table方式
@@ -176,7 +167,7 @@ $(function() {
      		height:130, //高度  		
      		//text: encodeBase64('038ef900-53bf-11eb-8e0b-00163e045ade','3') //任意内容
      		//text:"http://hcp.gdsay.cn/sp/cert/card?id=038ef900-53bf-11eb-8e0b-00163e045ade"
-     		text:detailurl
+     		text:"http://120.76.223.229:2080/Hcwx/sp/cert/card?id=038ef900-53bf-11eb-8e0b-00163e045ade&&isQrcode=1"
      	});
     	 
      }else{
